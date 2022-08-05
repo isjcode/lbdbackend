@@ -65,7 +65,7 @@ namespace lbdbackend.Service.Services {
         }
         public async Task Update(int? id, PersonUpdateDTO personUpdateDTO) {
             if (id == null) {
-                throw new BadRequestException("Id can't be null.");
+                throw new BadRequestException("ID can't be null.");
             }
             if (id != personUpdateDTO.ID) {
                 throw new BadRequestException("IDs do not match.");

@@ -9,5 +9,6 @@ namespace lbdbackend.Core.Entities {
         public int ProfessionID { get; set; }
         public Profession Profession { get; set; }
         public string Description { get; set; }
+        public List<JoinMoviesPeople> JoinMoviesPeople { get; set; }
     }
 }

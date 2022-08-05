@@ -23,6 +23,9 @@ namespace lbdbackend.Data
         public DbSet<Profession> Professions { get; set; }
 
         public DbSet<Person> People { get; set; }
+        public DbSet<JoinMoviesPeople> JoinMoviesPeople { get; set; }
+        public DbSet<JoinMoviesGenres> JoinMoviesGenres { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

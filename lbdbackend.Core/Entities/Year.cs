@@ -6,6 +6,7 @@ namespace lbdbackend.Core.Entities
 {
     public class Year : BaseEntity
     {
-       public int YearNumber { get; set; } 
+        public int YearNumber { get; set; }
+        public List<Movie> Movies { get; set; }
     }
 }
