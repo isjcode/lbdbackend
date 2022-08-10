@@ -10,6 +10,9 @@ namespace lbdbackend.Service.Interfaces {
         Task Create(MovieCreateDTO movieCreateDTO);
         Task DeleteOrRestore(int? id);
         Task Update(int? id, MovieUpdateDTO movieUpdateDTO);
+        Task<List<MovieGetDTO>> GetMovies();
+        Task<MovieGetDTO> GetByID(int? id);
+
 
     }
 }

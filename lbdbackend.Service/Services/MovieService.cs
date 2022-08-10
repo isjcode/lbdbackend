@@ -149,7 +149,22 @@ namespace lbdbackend.Service.Services {
                 await _repoMoviesPeople.CommitAsync();
 
             }
-
         }
+        public async Task<List<MovieGetDTO>> GetMovies() {
+            List<MovieGetDTO> dtos = new List<MovieGetDTO>();
+            foreach (Movie movie in await _repo.GetAllAsync(e => e != null)) {
+                dtos.Add(_mapper.Map<MovieGetDTO>(movie));
+            }
+
+            return dtos;
+        }
+        public async Task<MovieGetDTO> GetByID(int? id) {
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+            return _mapper.Map<MovieGetDTO>(await _repo.GetAsync(e => e.ID == id));
+        }
+
+
     }
 }

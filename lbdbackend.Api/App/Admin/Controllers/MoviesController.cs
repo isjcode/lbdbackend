@@ -39,5 +39,17 @@ namespace lbdbackend.Api.App.Admin.Controllers {
             return StatusCode(204);
         }
 
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<IActionResult> GetAll() {
+            return Ok(await _movieService.GetMovies());
+        }
+
+        [HttpGet]
+        [Route("GetByID")]
+        public async Task<IActionResult> GetByID(int? id) {
+            return Ok(await _movieService.GetByID(id));
+        }
+
     }
 }
