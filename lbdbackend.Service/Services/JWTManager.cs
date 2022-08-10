@@ -1,5 +1,6 @@
 ﻿using lbdbackend.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ using System.Threading.Tasks;
 namespace lbdbackend.Service.Services {
     public class JWTManager : IJWTManager {
         private readonly UserManager<IdentityUser> _userManager;
+        private IConfiguration Configuration { get; }
 
-        public JWTManager(UserManager<IdentityUser> userManager) {
+        public JWTManager(UserManager<IdentityUser> userManager, IConfiguration configuration) {
             _userManager = userManager;
+            Configuration = configuration;
         }
         public async Task<string> GenerateToken(IdentityUser user) {
             List<Claim> claims = new List<Claim> {
@@ -31,12 +34,15 @@ namespace lbdbackend.Service.Services {
                 claims.Add(claim);
             }
 
-            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("31f10115-f47d-4fca-897e-f2afd7a2aa3f"));
+            //SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JWT: SecurityKey").Value));
+            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("c422eb48-f0f6-4930-ac7d-d21216c5ba01"));
             SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha512);
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
-                    issuer: "",
-                    audience: "",
+                    //issuer: Configuration.GetSection("JWT:Issuer").Value,
+                    //audience: Configuration.GetSection("JWT:Audience").Value,
+                    issuer: "http://localhost:64531",
+                    audience: "http://localhost:64531",
                     claims: claims,
                     expires: DateTime.Now.AddHours(1)
                 );

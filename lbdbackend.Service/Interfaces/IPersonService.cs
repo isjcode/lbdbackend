@@ -9,6 +9,9 @@ namespace lbdbackend.Service.Interfaces {
         Task Create(PersonCreateDTO professionCreateDTO);
         Task DeleteOrRestore(int? id);
         Task Update(int? ID, PersonUpdateDTO personUpdateDTO);
+        Task<List<PersonGetDTO>> GetPeople();
+        Task<PersonGetDTO> GetByID(int? id);
+
 
     }
 }

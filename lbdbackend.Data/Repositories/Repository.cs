@@ -39,6 +39,17 @@ namespace lbdbackend.Data.Repositories {
 
             return await query.FirstOrDefaultAsync();
         }
+        public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression, params string[] includes) {
+            IQueryable<TEntity> query = _context.Set<TEntity>().Where(expression);
+
+            if (includes != null && includes.Length > 0) {
+                foreach (string include in includes) {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.ToListAsync();
+        }
 
 
         public async Task RemoveOrRestore(int? id) {

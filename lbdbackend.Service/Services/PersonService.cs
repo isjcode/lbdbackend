@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using lbdbackend.Core.Entities;
 using lbdbackend.Core.Repositories;
+using lbdbackend.Data.Repositories;
 using lbdbackend.Service.DTOs.GenreDTOs;
 using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.Exceptions;
@@ -35,7 +36,6 @@ namespace lbdbackend.Service.Services {
                 throw new ItemNotFoundException($"{personCreateDTO.ProfessionID} is not a valid ID.");
             }
 
-            Person person = _mapper.Map<Person>(personCreateDTO);
 
             if (personCreateDTO.File.CheckFileContentType("image/jpeg")) {
                 throw new BadRequestException("Wrong file type.");
@@ -44,6 +44,9 @@ namespace lbdbackend.Service.Services {
             if (personCreateDTO.File.CheckFileSize(300)) {
                 throw new BadRequestException("File too big.");
             }
+
+
+            Person person = _mapper.Map<Person>(personCreateDTO);
 
             person.Image = await personCreateDTO.File.CreateFileAsync(_env, "Assets", "Images", "People");
 
@@ -72,8 +75,12 @@ namespace lbdbackend.Service.Services {
             }
 
             if (!await _repo.ExistsAsync(e => e.ID == personUpdateDTO.ID)) {
-                throw new BadRequestException("ID doesn't exist.");
+                throw new ItemNotFoundException("Person ID doesn't exist.");
             }
+            if (!await _professionRepo.ExistsAsync(e => e.ID == personUpdateDTO.ProfessionID)) {
+                throw new ItemNotFoundException("Profession ID doesn't exist.");
+            }
+
 
             Person person = await _repo.GetAsync(e => e.ID == personUpdateDTO.ID);
             person.Name = personUpdateDTO.Name;
@@ -86,8 +93,25 @@ namespace lbdbackend.Service.Services {
                 throw new NullReferenceException();
             }
 
-            _repo.CommitAsync();
+            await _repo.CommitAsync();
         }
+
+        public async Task<List<PersonGetDTO>> GetPeople() {
+            List<PersonGetDTO> dtos = new List<PersonGetDTO>();
+            foreach (Person person in await _repo.GetAllAsync(e => e != null)) {
+                dtos.Add(_mapper.Map<PersonGetDTO>(person));
+            }
+
+            return dtos;
+        }
+        public async Task<PersonGetDTO> GetByID(int? id) {
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+
+            return _mapper.Map<PersonGetDTO>(await _repo.GetAsync(e => e.ID == id));
+        }
+
 
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace lbdbackend.Core.Repositories {
 
         Task RemoveOrRestore(int? id);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression, params string[] includes);
-
+        Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression, params string[] includes);
 
     }
 }

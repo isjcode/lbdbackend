@@ -27,6 +27,7 @@ namespace lbdbackend.Api.App.Admin.Controllers {
             _jwtManager = jwtManager;
         }
         [HttpPost]
+        [Route("Login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO) {
             IdentityUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
             IdentityUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);

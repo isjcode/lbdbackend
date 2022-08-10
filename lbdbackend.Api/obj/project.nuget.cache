@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Rut5OeUvOPbe8nfM51yslGQKClvCx3mgrHBez4cWfhonIVUzwDJCCwHveZMcHe/E2paMILOkreSAmReyt4F/9w==",
+  "dgSpecHash": "rq8xsj3ednkgvPtau/xAh7e+r14IEalNxkckWty66Oui61PikXdYbzAcJ6MSWDgQoUJvo49Eouhx57P4N+N+DA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lasau\\Projects\\lbdbackend-main\\lbdbackend.Api\\lbdbackend.Api.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\lasau\\.nuget\\packages\\fluentvalidation\\11.1.0\\fluentvalidation.11.1.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.1.2\\fluentvalidation.aspnetcore.11.1.2.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.1.0\\fluentvalidation.dependencyinjectionextensions.11.1.0.nupkg.sha512",
+    "C:\\Users\\lasau\\.nuget\\packages\\microelements.swashbuckle.fluentvalidation\\5.7.0\\microelements.swashbuckle.fluentvalidation.5.7.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.27\\microsoft.aspnetcore.authentication.jwtbearer.3.1.27.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.27\\microsoft.aspnetcore.cryptography.internal.3.1.27.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.27\\microsoft.aspnetcore.cryptography.keyderivation.3.1.27.nupkg.sha512",
@@ -57,6 +58,7 @@
     "C:\\Users\\lasau\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\lasau\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.4.0\\swashbuckle.aspnetcore.annotations.6.4.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",

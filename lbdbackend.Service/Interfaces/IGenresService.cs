@@ -1,4 +1,5 @@
-﻿using lbdbackend.Service.DTOs.GenreDTOs;
+﻿using lbdbackend.Core.Entities;
+using lbdbackend.Service.DTOs.GenreDTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace lbdbackend.Service.Interfaces {
         Task Create(GenreCreateDTO genrePostDTO);
         Task DeleteOrRestore(int? id);
         Task Update(int? id, GenreUpdateDTO genreUpdateDTO);
+        Task<List<GenreGetDTO>> GetGenres();
+        Task<GenreGetDTO> GetByID(int? id);
 
 
     }

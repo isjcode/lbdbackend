@@ -51,7 +51,7 @@ namespace lbdbackend.Service.Services {
             }
 
             if (!await _repo.ExistsAsync(e => e.ID == professionUpdateDTO.ID)) {
-                throw new BadRequestException("ID doesn't exist.");
+                throw new ItemNotFoundException("ID doesn't exist.");
             }
 
             Profession profession = await _repo.GetAsync(e => e.ID == professionUpdateDTO.ID);
@@ -63,6 +63,22 @@ namespace lbdbackend.Service.Services {
             }
 
             _repo.CommitAsync();
+        }
+
+        public async Task<List<ProfessionGetDTO>> GetProfessions() {
+            List<ProfessionGetDTO> dtos = new List<ProfessionGetDTO>();
+            foreach (Profession profession in await _repo.GetAllAsync(e => e != null)) {
+                dtos.Add(_mapper.Map<ProfessionGetDTO>(profession));
+            }
+
+            return dtos;
+        }
+        public async Task<ProfessionGetDTO> GetByID(int? id) {
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+
+            return _mapper.Map<ProfessionGetDTO>(await _repo.GetAsync(e => e.ID == id));
         }
 
     }

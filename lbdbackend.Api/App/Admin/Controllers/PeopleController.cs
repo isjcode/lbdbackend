@@ -1,11 +1,15 @@
 ﻿using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace lbdbackend.Api.App.Admin.Controllers {
     [Route("api/[controller]")]
+    //[Authorize(Roles = "Superadmin, Admin")]
+
+
     [ApiController]
     public class PeopleController : ControllerBase {
         private readonly IPersonService _personService;

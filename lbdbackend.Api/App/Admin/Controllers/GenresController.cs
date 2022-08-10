@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using lbdbackend.Service.Interfaces;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace lbdbackend.Api.App.Admin.Controllers {
     [Route("api/admin/[controller]")]
+    //[Authorize(Roles = "Superadmin, Admin")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     public class GenresController : ControllerBase {
         private readonly IGenresService _genreService;
