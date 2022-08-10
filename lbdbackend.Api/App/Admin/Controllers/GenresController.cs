@@ -30,14 +30,25 @@ namespace lbdbackend.Api.App.Admin.Controllers {
         [Route("DeleteOrRestore")]
         public async Task<IActionResult> DeleteOrRestore(int? id) {
             await  _genreService.DeleteOrRestore(id);
-            return StatusCode(200);
+            return StatusCode(204);
         }
 
         [HttpPost]
         [Route("Update")]
         public async Task<IActionResult> Update(int? id, GenreUpdateDTO genreUpdateDTO) {
             await _genreService.Update(id, genreUpdateDTO);
-            return StatusCode(200);
+            return StatusCode(204);
+        }
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<IActionResult> GetAll() {
+            return Ok(await _genreService.GetGenres());
+        }
+
+        [HttpGet]
+        [Route("GetByID")]
+        public async Task<IActionResult> GetByID(int? id) {
+            return Ok(await _genreService.GetByID(id));
         }
 
     }

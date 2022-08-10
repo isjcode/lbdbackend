@@ -48,7 +48,7 @@ namespace lbdbackend.Service.Services {
 
             Person person = _mapper.Map<Person>(personCreateDTO);
 
-            person.Image = await personCreateDTO.File.CreateFileAsync(_env, "Assets", "Images", "People");
+            person.Image = await personCreateDTO.File.CreateFileAsync(_env, "assets", "images", "people");
 
             person.CreatedAt = DateTime.UtcNow;
 
@@ -86,6 +86,7 @@ namespace lbdbackend.Service.Services {
             person.Name = personUpdateDTO.Name;
             person.Description = personUpdateDTO.Description;
             person.Image = await personUpdateDTO.File.CreateFileAsync(_env, "Assets", "Images", "People");
+            Console.WriteLine(_env);
             person.UpdatedAt = DateTime.UtcNow;
 
 
@@ -108,7 +109,6 @@ namespace lbdbackend.Service.Services {
             if (id == null) {
                 throw new ArgumentNullException("id");
             }
-
             return _mapper.Map<PersonGetDTO>(await _repo.GetAsync(e => e.ID == id));
         }
 

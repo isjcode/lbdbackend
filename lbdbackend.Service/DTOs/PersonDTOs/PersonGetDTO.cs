@@ -5,7 +5,7 @@ namespace lbdbackend.Service.DTOs.PersonDTOs {
     public class PersonGetDTO {
         public string Name { get; set; }
         public string Description { get; set; }
-        public IFormFile Image { get; set; }
+        public string Image { get; set; }
         public int ProfessionID { get; set; }
 
         public int ID;

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace lbdbackend.Api.App.Admin.Controllers {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     //[Authorize(Roles = "Superadmin, Admin")]
 
 
@@ -27,15 +27,28 @@ namespace lbdbackend.Api.App.Admin.Controllers {
         [Route("DeleteOrRestore")]
         public async Task<IActionResult> DeleteOrRestore(int? id) {
             await _personService.DeleteOrRestore(id);
-            return StatusCode(201);
+            return StatusCode(204);
         }
 
         [HttpPost]
         [Route("Update")]
         public async Task<IActionResult> Update(int? id, [FromForm] PersonUpdateDTO personUpdateDTO) {
             await _personService.Update(id, personUpdateDTO);
-            return StatusCode(201);
+            return StatusCode(204);
         }
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<IActionResult> GetAll() {
+            return Ok(await _personService.GetPeople());
+        }
+
+        [HttpGet]
+        [Route("GetByID")]
+        public async Task<IActionResult> GetByID(int? id) {
+            return Ok(await _personService.GetByID(id));
+        }
+
+
 
     }
 }

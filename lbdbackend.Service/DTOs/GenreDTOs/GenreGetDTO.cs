@@ -3,7 +3,7 @@
 namespace lbdbackend.Service.DTOs.GenreDTOs {
     public class GenreGetDTO {
         public string Name { get; set; }
-        public int ID;
+        public int ID { get; set; }
         public bool IsDeleted { get; set; }
     }
 

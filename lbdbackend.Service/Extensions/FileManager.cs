@@ -19,12 +19,13 @@ namespace P225Allup.Extensions {
         public async static Task<string> CreateFileAsync(this IFormFile file, IWebHostEnvironment env, params string[] folders) {
             string fileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + file.FileName;
 
-            string fullPath = Path.Combine(env.WebRootPath);
+            //string fullPath = Path.Combine(env.WebRootPath);
 
-            foreach (string folder in folders) {
-                fullPath = Path.Combine(fullPath, folder);
-            }
+            //foreach (string folder in folders) {
+            //    fullPath = Path.Combine(fullPath, folder);
+            //}
 
+            string fullPath = "C:\\Users\\lasau\\Projects\\lbdfrontend\\adminpanel\\src\\assets\\images";
             fullPath = Path.Combine(fullPath, fileName);
 
             using (FileStream stream = new FileStream(fullPath, FileMode.Create)) {

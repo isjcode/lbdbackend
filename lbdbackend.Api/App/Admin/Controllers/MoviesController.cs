@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace lbdbackend.Api.App.Admin.Controllers {
     [Route("api/admin/[controller]")]
-    [Authorize(Roles = "Superadmin, Admin")]
+    //[Authorize(Roles = "Superadmin, Admin")]
     [ApiController]
     public class MoviesController : ControllerBase {
         private readonly IMovieService _movieService;
@@ -29,14 +29,14 @@ namespace lbdbackend.Api.App.Admin.Controllers {
         [Route("DeleteOrRestore")]
         public async Task<IActionResult> DeleteOrRestore(int? id) {
             await _movieService.DeleteOrRestore(id);
-            return StatusCode(200);
+            return StatusCode(204);
         }
         [HttpPost]
         [Route("Update")]
 
         public async Task<IActionResult> Update(int? id, [FromForm] MovieUpdateDTO movieUpdateDTO) {
             await _movieService.Update(id, movieUpdateDTO);
-            return StatusCode(201);
+            return StatusCode(204);
         }
 
     }
