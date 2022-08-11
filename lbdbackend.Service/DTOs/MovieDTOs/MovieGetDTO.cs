@@ -10,6 +10,7 @@ namespace lbdbackend.Service.DTOs.MovieDTOs {
 
         public string PosterImage { get; set; }
         public bool IsDeleted { get; set; }
+        public int ID { get; set; }
     }
 
     public class MovieGetValidator : AbstractValidator<MovieGetDTO> {

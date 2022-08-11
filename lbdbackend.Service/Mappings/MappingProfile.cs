@@ -5,6 +5,7 @@ using lbdbackend.Service.DTOs.GenreDTOs;
 using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.DTOs.ProfessionDTOs;
+using lbdbackend.Service.DTOs.YearDTOs;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,11 @@ namespace lbdbackend.Service.Mappings {
             CreateMap<MovieCreateDTO, Movie>();
             CreateMap<Movie, MovieGetDTO>();
             CreateMap<MovieGetDTO, Movie>();
+
+            CreateMap<YearGetDTO, Year>();
+            CreateMap<Year, YearGetDTO>();
+
+
         }
     }
 }

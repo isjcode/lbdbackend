@@ -123,6 +123,7 @@ namespace lbdbackend.Api {
             services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddScoped<IYearRepository, YearRepository>();
+            services.AddScoped<IYearsService, YearsService>();
             services.AddScoped<IJoinMoviesGenresRepository, Data.Repositories.JoinMoviesGenresRepository>();
             services.AddScoped<IJoinMoviesPeopleRepository, JoinMoviesPeopleRepository>();
         }

@@ -15,8 +15,10 @@ namespace lbdbackend.Api.App.Admin.Controllers {
     [ApiController]
     public class MoviesController : ControllerBase {
         private readonly IMovieService _movieService;
-        public MoviesController(IMovieService movieService) {
+        private readonly IYearsService _yearsService;
+        public MoviesController(IMovieService movieService, IYearsService yearsService) {
             _movieService = movieService;
+            _yearsService = yearsService;   
         }
         [HttpPut]
         [Route("Create")]
@@ -43,6 +45,11 @@ namespace lbdbackend.Api.App.Admin.Controllers {
         [Route("GetAll")]
         public async Task<IActionResult> GetAll() {
             return Ok(await _movieService.GetMovies());
+        }
+        [HttpGet]
+        [Route("GetYears")]
+        public async Task<IActionResult> GetYears() {
+            return Ok(await _yearsService.GetYears());
         }
 
         [HttpGet]
