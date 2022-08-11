@@ -131,16 +131,28 @@ namespace lbdbackend.Service.Services {
 
             foreach (int genreID in movieUpdateDTO.Genres) {
                 JoinMoviesGenres row = new JoinMoviesGenres();
-                row.MovieID = movie.ID;
-                row.GenreID = genreID;
-                await _repoMoviesGenres.AddAsync(row);
+                if (!await _repoMoviesGenres.ExistsAsync(e => e.GenreID == genreID)) {
+                    row.MovieID = movie.ID;
+                    row.GenreID = genreID;
+                    await _repoMoviesGenres.AddAsync(row);
+                }
+                else if (await _repoMoviesGenres.ExistsAsync(e => e.GenreID == genreID)) {
+                    var r = await _repoMoviesGenres.GetAsync(e => e.GenreID == genreID);
+                    r.IsDeleted = false;
+                }
             }
 
             foreach (int personID in movieUpdateDTO.People) {
                 JoinMoviesPeople row = new JoinMoviesPeople();
-                row.MovieID = movie.ID;
-                row.PersonID = personID;
-                await _repoMoviesPeople.AddAsync(row);
+                if (!await _repoMoviesPeople.ExistsAsync(e => e.PersonID == personID)) {
+                    row.MovieID = movie.ID;
+                    row.PersonID = personID;
+                    await _repoMoviesPeople.AddAsync(row);
+                }
+                else if (await _repoMoviesPeople.ExistsAsync(e => e.PersonID == personID)) {
+                    var r = await _repoMoviesPeople.GetAsync(e => e.PersonID == personID);
+                    r.IsDeleted = false;
+                }
 
                 if (movie == null) {
                     throw new NullReferenceException();
