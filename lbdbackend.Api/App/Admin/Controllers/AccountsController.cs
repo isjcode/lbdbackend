@@ -48,7 +48,12 @@ namespace lbdbackend.Api.App.Admin.Controllers {
 
             return NotFound("Your credentials don’t match. It’s probably attributable to human error."); 
         }
+        [HttpGet]
+        [Route("CheckToken")]
+        [Authorize(Roles="Superadmin, Admin")]
 
-
+        public async Task<IActionResult> CheckToken() {
+            return Ok();
+        }
     }
 }

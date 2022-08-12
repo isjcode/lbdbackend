@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace lbdbackend.Api.App.Admin.Controllers {
     [Route("api/admin/[controller]")]
-    //[Authorize(Roles = "Superadmin, Admin")]
+    [Authorize(Roles = "Superadmin,Admin")]
 
 
     [ApiController]

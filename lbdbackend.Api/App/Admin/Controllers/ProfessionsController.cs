@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace lbdbackend.Api.App.Admin.Controllers {
     [Route("api/admin/[controller]")]
-    //[Authorize(Roles = "Superadmin, Admin")]
+    [Authorize(Roles = "Superadmin, Admin")]
     [ApiController]
     public class ProfessionsController : ControllerBase {
         private readonly IProfessionsService _professionService;

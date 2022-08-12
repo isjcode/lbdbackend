@@ -35,15 +35,14 @@ namespace lbdbackend.Service.Services {
             }
 
             //SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JWT: SecurityKey").Value));
-            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("c422eb48-f0f6-4930-ac7d-d21216c5ba01"));
+            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:SecurityKey").Value));
             SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha512);
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
-                    //issuer: Configuration.GetSection("JWT:Issuer").Value,
-                    //audience: Configuration.GetSection("JWT:Audience").Value,
-                    issuer: "http://localhost:64531",
-                    audience: "http://localhost:64531",
+                    issuer: Configuration.GetSection("JWT:Issuer").Value,
+                    audience: Configuration.GetSection("JWT:Audience").Value,
                     claims: claims,
+                    signingCredentials: signingCredentials,
                     expires: DateTime.Now.AddHours(1)
                 );
 
