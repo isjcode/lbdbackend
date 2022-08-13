@@ -19,18 +19,24 @@ namespace P225Allup.Extensions {
         public async static Task<string> CreateFileAsync(this IFormFile file, IWebHostEnvironment env, params string[] folders) {
             string fileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + file.FileName;
 
-            //string fullPath = Path.Combine(env.WebRootPath);
+            string fullPath1 = "C:\\Users\\lasau\\Projects\\lbdfrontend\\adminpanel";
+            string fullPath2 = "C:\\Users\\lasau\\Projects\\lbdfrontend\\website";
 
-            //foreach (string folder in folders) {
-            //    fullPath = Path.Combine(fullPath, folder);
-            //}
+            foreach (string folder in folders) {
+                fullPath1 = Path.Combine(fullPath1, folder);
+                fullPath2 = Path.Combine(fullPath2, folder);
+            }
 
-            string fullPath = "C:\\Users\\lasau\\Projects\\lbdfrontend\\adminpanel\\src\\assets\\images";
-            fullPath = Path.Combine(fullPath, fileName);
+            fullPath1 = Path.Combine(fullPath1, fileName);
+            fullPath2 = Path.Combine(fullPath2, fileName);
 
-            using (FileStream stream = new FileStream(fullPath, FileMode.Create)) {
+            using (FileStream stream = new FileStream(fullPath1, FileMode.Create)) {
                 await file.CopyToAsync(stream);
             }
+            using (FileStream stream = new FileStream(fullPath2, FileMode.Create)) {
+                await file.CopyToAsync(stream);
+            }
+            fullPath2 = Path.Combine(fullPath2, fileName);
 
             return fileName;
         }

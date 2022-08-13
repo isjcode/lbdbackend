@@ -62,8 +62,8 @@ namespace lbdbackend.Service.Services {
 
             Movie movie = _mapper.Map<Movie>(movieCreateDTO);
 
-            movie.PosterImage = await movieCreateDTO.PosterImage.CreateFileAsync(_env, "Assets", "Images", "Movies", "Posters");
-            movie.BackgroundImage = await movieCreateDTO.BackgroundImage.CreateFileAsync(_env, "Assets", "Images", "Movies", "Backgrounds");
+            movie.PosterImage = await movieCreateDTO.PosterImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "posterimages");
+            movie.BackgroundImage = await movieCreateDTO.BackgroundImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "backgroundimages");
 
             movie.CreatedAt = DateTime.UtcNow;
 
@@ -114,8 +114,8 @@ namespace lbdbackend.Service.Services {
             Movie movie = await _repo.GetAsync(e => e.ID == movieUpdateDTO.ID);
             movie.Name = movieUpdateDTO.Name;
             movie.Synopsis = movieUpdateDTO.Synopsis;
-            movie.PosterImage = await movieUpdateDTO.PosterImage.CreateFileAsync(_env, "Assets", "Images", "Movies", "Posters");
-            movie.BackgroundImage = await movieUpdateDTO.BackgroundImage.CreateFileAsync(_env, "Assets", "Images", "Movies", "Backgrounds");
+            movie.PosterImage = await movieUpdateDTO.PosterImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "posterimages");
+            movie.BackgroundImage = await movieUpdateDTO.BackgroundImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "backgroundimages");
             movie.YearID = movieUpdateDTO.YearID;
             movie.UpdatedAt = DateTime.UtcNow;
 
