@@ -18,10 +18,10 @@ namespace lbdbackend.Api.App.Admin.Controllers {
     [ApiController]
     public class AccountsController : ControllerBase {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IJWTManager _jwtManager;
 
-        public AccountsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IJWTManager jwtManager) {
+        public AccountsController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IJWTManager jwtManager) {
             _userManager = userManager;
             _roleManager = roleManager;
             _jwtManager = jwtManager;
@@ -29,8 +29,8 @@ namespace lbdbackend.Api.App.Admin.Controllers {
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO) {
-            IdentityUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
-            IdentityUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);
+            AppUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
+            AppUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);
 
             if (foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password)) {
                 var token = await _jwtManager.GenerateToken(foundByEmail);

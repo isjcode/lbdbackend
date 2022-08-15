@@ -16,12 +16,12 @@ namespace lbdbackend.Api.App.User.Controllers {
 
     public class AccountsController : ControllerBase {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IJWTManager _jwtManager;
 
 
-        public AccountsController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IJWTManager jwtManager) {
+        public AccountsController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IJWTManager jwtManager) {
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
@@ -31,7 +31,7 @@ namespace lbdbackend.Api.App.User.Controllers {
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO) {
-            IdentityUser user = _mapper.Map<IdentityUser>(registerDTO);
+            AppUser user = _mapper.Map<AppUser>(registerDTO);
 
             IdentityResult identityResult = await _userManager.CreateAsync(user, registerDTO.Password);
 
@@ -47,8 +47,8 @@ namespace lbdbackend.Api.App.User.Controllers {
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO) {
-            IdentityUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
-            IdentityUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);
+            AppUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
+            AppUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);
 
             if (foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password)) {
                 var token = await _jwtManager.GenerateToken(foundByEmail);
@@ -94,7 +94,7 @@ namespace lbdbackend.Api.App.User.Controllers {
 
         //[HttpGet]
         //public async Task<IActionResult> createsuperadmin() {
-        //    //IdentityUser superAdmin = new IdentityUser();
+        //    //AppUser superAdmin = new AppUser();
 
         //    //superAdmin.Email = "lasauthr@protonmail.com";
         //    ////superAdmin.UserName = "Superadmin";
