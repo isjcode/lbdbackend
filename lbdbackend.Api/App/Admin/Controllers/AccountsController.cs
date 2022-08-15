@@ -45,7 +45,6 @@ namespace lbdbackend.Api.App.Admin.Controllers {
                 });
             }
 
-
             return NotFound("Your credentials don’t match. It’s probably attributable to human error."); 
         }
         [HttpGet]
