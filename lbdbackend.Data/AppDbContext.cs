@@ -28,7 +28,6 @@ namespace lbdbackend.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<JoinMoviewsReviews> JoinMoviesReviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

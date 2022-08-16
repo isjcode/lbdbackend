@@ -8,8 +8,10 @@ using System.Text;
 namespace lbdbackend.Data.Configurations {
     public class ReviewConfigurations : IEntityTypeConfiguration<Review> {
         public void Configure(EntityTypeBuilder<Review> builder) {
-            builder.Property(b => b.Body).HasMaxLength(500).IsRequired(true);
-            builder.Property(b => b.OwnerID).IsRequired(true);
+            builder.Property(b => b.Body).HasMaxLength(300).IsRequired(true);
+            builder.Property(b => b.Owner).IsRequired(true);
+            builder.Property(b => b.Score).IsRequired(true);
+            builder.Property(b => b.Movie).IsRequired(true);
         }
     }
 }
