@@ -14,7 +14,7 @@ using System.Text;
 namespace lbdbackend.Service.Mappings {
     public class MappingProfile : Profile {
         public MappingProfile() {
-            CreateMap<RegisterDTO, IdentityUser>();
+            CreateMap<RegisterDTO, AppUser>();
 
             CreateMap<GenreUpdateDTO, Genre>();
             CreateMap<Genre, GenreUpdateDTO>();

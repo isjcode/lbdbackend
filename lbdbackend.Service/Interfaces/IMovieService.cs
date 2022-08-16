@@ -12,6 +12,7 @@ namespace lbdbackend.Service.Interfaces {
         Task Update(int? id, MovieUpdateDTO movieUpdateDTO);
         Task<List<MovieGetDTO>> GetMovies();
         Task<MovieGetDTO> GetByID(int? id);
+        Task<List<MovieGetDTO>> GetByStr(string str);
 
 
     }

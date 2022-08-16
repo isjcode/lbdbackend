@@ -1,4 +1,5 @@
-﻿using lbdbackend.Service.Interfaces;
+﻿using lbdbackend.Core.Entities;
+using lbdbackend.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace lbdbackend.Service.Services {
     public class JWTManager : IJWTManager {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private IConfiguration Configuration { get; }
 
-        public JWTManager(UserManager<IdentityUser> userManager, IConfiguration configuration) {
+        public JWTManager(UserManager<AppUser> userManager, IConfiguration configuration) {
             _userManager = userManager;
             Configuration = configuration;
         }
-        public async Task<string> GenerateToken(IdentityUser user) {
+        public async Task<string> GenerateToken(AppUser user) {
             List<Claim> claims = new List<Claim> {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Name, user.UserName),
@@ -54,6 +55,12 @@ namespace lbdbackend.Service.Services {
 
         public string GetUsernameByToken(string token) {
             return new JwtSecurityTokenHandler().ReadJwtToken(token).Claims.ToList().FirstOrDefault(e => e.Type == ClaimTypes.Name).Value;
+        }
+
+        public string decodeJWT(string tokenString) {
+            var jwtToken = new JwtSecurityToken(tokenString);
+
+            return jwtToken.Subject;
         }
     }
 }

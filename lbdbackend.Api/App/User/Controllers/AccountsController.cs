@@ -53,13 +53,23 @@ namespace lbdbackend.Api.App.User.Controllers {
             if (foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password)) {
                 var token = await _jwtManager.GenerateToken(foundByEmail);
                 return Ok(new {
-                    token = token
+                    token = token,
+                    userData = new {
+                        username = foundByEmail.UserName,
+                        email = foundByEmail.Email,
+                        id = foundByEmail.Id
+                    }
                 });
             }
             else if (foundByUserName != null && await _userManager.CheckPasswordAsync(foundByUserName, loginDTO.Password)) {
                 var token = await _jwtManager.GenerateToken(foundByUserName);
                 return Ok(new {
-                    token = token
+                    token = token,
+                    userData = new {
+                        username = foundByUserName.UserName,
+                        email = foundByUserName.Email,
+                        id = foundByUserName.Id
+                    }
                 });
             }
 

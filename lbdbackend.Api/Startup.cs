@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using lbdbackend.Core.Entities;
 using lbdbackend.Core.Repositories;
 using lbdbackend.Data;
 using lbdbackend.Data.Repositories;
@@ -81,7 +82,7 @@ namespace lbdbackend.Api {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+            services.AddIdentity<AppUser, IdentityRole>(options => {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();

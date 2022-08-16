@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 // dotnet ef --startup-project ..\lbdbackend.Api migration remove 
 namespace lbdbackend.Data
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -26,6 +26,9 @@ namespace lbdbackend.Data
         public DbSet<JoinMoviesPeople> JoinMoviesPeople { get; set; }
         public DbSet<JoinMoviesGenres> JoinMoviesGenres { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<JoinMoviewsReviews> JoinMoviesReviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

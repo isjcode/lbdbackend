@@ -177,6 +177,15 @@ namespace lbdbackend.Service.Services {
             return _mapper.Map<MovieGetDTO>(await _repo.GetAsync(e => e.ID == id));
         }
 
-
+        public async Task<List<MovieGetDTO>> GetByStr(string str) {
+            List<Movie> movies = await _repo.GetAllAsync(m => m != null);
+            List<MovieGetDTO> movieGetDTOs = new List<MovieGetDTO>();
+            foreach (var movie in movies) {
+                if (movie.Name.ToLower().Contains(str.ToLower())) {
+                    movieGetDTOs.Add(_mapper.Map<MovieGetDTO>(movie));
+                }
+            }
+            return movieGetDTOs;
+        }
     }
 }
