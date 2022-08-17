@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "tfGB/99NZEhK9TTE1e6ed/lYhnVXimV/RKdkspt4xOT1YZwm2CFJ0NJZYrLnFTSvp5VBSkBE0pRTB7tetJ6YOA==",
+  "dgSpecHash": "HoDYCsZXFrPkBEYYXsd5VtIA4seRIJuX7R+rZQUgUbDnNvagl/bKdnO573qxottmJssrKlL7RZ5OitAQqOpzsA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lasau\\Projects\\lbdbackend-main\\lbdbackend.Service\\lbdbackend.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lasau\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\lasau\\.nuget\\packages\\awssdk.core\\3.7.12.22\\awssdk.core.3.7.12.22.nupkg.sha512",
+    "C:\\Users\\lasau\\.nuget\\packages\\awssdk.simplesystemsmanagement\\3.7.17.39\\awssdk.simplesystemsmanagement.3.7.17.39.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\fluentvalidation\\11.1.0\\fluentvalidation.11.1.0.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.1.2\\fluentvalidation.aspnetcore.11.1.2.nupkg.sha512",
     "C:\\Users\\lasau\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.1.0\\fluentvalidation.dependencyinjectionextensions.11.1.0.nupkg.sha512",

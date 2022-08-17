@@ -10,7 +10,7 @@ using lbdbackend.Data;
 namespace lbdbackend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220816133623_AddedReviewsAndComments")]
+    [Migration("20220817144602_AddedReviewsAndComments")]
     partial class AddedReviewsAndComments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -486,9 +486,8 @@ namespace lbdbackend.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -499,13 +498,14 @@ namespace lbdbackend.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MovieID")
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Score")
+                    b.Property<int?>("Rating")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -513,7 +513,7 @@ namespace lbdbackend.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MovieID");
+                    b.HasIndex("MovieId");
 
                     b.HasIndex("OwnerId");
 
@@ -661,11 +661,15 @@ namespace lbdbackend.Data.Migrations
                 {
                     b.HasOne("lbdbackend.Core.Entities.Movie", "Movie")
                         .WithMany()
-                        .HasForeignKey("MovieID");
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -172,3 +172,5 @@ C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\l
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.genruntimeconfig.cache
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\MicroElements.Swashbuckle.FluentValidation.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\AWSSDK.Core.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\AWSSDK.SimpleSystemsManagement.dll

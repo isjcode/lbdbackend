@@ -17,26 +17,26 @@ namespace lbdbackend.Data.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: true),
                     UpdatedAt = table.Column<DateTime>(nullable: true),
                     DeletedAt = table.Column<DateTime>(nullable: true),
-                    Body = table.Column<string>(maxLength: 500, nullable: false),
-                    OwnerId = table.Column<string>(nullable: true),
-                    MovieID = table.Column<int>(nullable: true),
-                    Score = table.Column<int>(nullable: false)
+                    Body = table.Column<string>(maxLength: 300, nullable: true),
+                    OwnerId = table.Column<string>(nullable: false),
+                    MovieId = table.Column<int>(nullable: false),
+                    Rating = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reviews", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Reviews_Movies_MovieID",
-                        column: x => x.MovieID,
+                        name: "FK_Reviews_Movies_MovieId",
+                        column: x => x.MovieId,
                         principalTable: "Movies",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reviews_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,9 +81,9 @@ namespace lbdbackend.Data.Migrations
                 column: "ReviewID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_MovieID",
+                name: "IX_Reviews_MovieId",
                 table: "Reviews",
-                column: "MovieID");
+                column: "MovieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_OwnerId",

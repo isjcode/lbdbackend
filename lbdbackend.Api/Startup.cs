@@ -76,6 +76,8 @@ namespace lbdbackend.Api {
 
             services.AddControllers().AddNewtonsoftJson(options => {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.UseMemberCasing();
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             }).AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<LoginDTOValidator>());
 
             services.AddDbContext<AppDbContext>(options => {
@@ -127,6 +129,9 @@ namespace lbdbackend.Api {
             services.AddScoped<IYearsService, YearsService>();
             services.AddScoped<IJoinMoviesGenresRepository, Data.Repositories.JoinMoviesGenresRepository>();
             services.AddScoped<IJoinMoviesPeopleRepository, JoinMoviesPeopleRepository>();
+
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IReviewService, ReviewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

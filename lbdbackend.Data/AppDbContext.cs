@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 // dotnet ef --startup-project ..\lbdbackend.Api migrations add InitialMigration
 // dotnet ef --startup-project ..\lbdbackend.Api database update
-// dotnet ef --startup-project ..\lbdbackend.Api migration remove 
+// dotnet ef --startup-project ..\lbdbackend.Api migrations remove 
 namespace lbdbackend.Data
 {
     public class AppDbContext : IdentityDbContext<AppUser>

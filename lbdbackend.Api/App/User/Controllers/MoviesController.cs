@@ -17,7 +17,7 @@ namespace lbdbackend.Api.App.User.Controllers {
         [HttpGet]
         [Route("getyears")]
         public async Task<IActionResult> GetYears() {
-            return Ok(_yearsService.GetYears());
+            return Ok(await _yearsService.GetYears());
         }
 
         [HttpPost]
@@ -30,6 +30,11 @@ namespace lbdbackend.Api.App.User.Controllers {
         [Route("getbyid")]
         public async Task<IActionResult> GetByID(int? id) {
             return Ok(await _movieService.GetByID(id));
+        }
+        [HttpGet]
+        [Route("searchmovies")]
+        public async Task<IActionResult> GetMoviesPaginated(string s, int pageIndex = 1) {
+            return Ok(await _movieService.GetAllPageIndexAsync(s, pageIndex));
         }
 
     }

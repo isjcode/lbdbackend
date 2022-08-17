@@ -187,5 +187,12 @@ namespace lbdbackend.Service.Services {
             }
             return movieGetDTOs;
         }
+
+        public async Task<PaginatedListDTO<MovieGetDTO>> GetAllPageIndexAsync(string s, int pageIndex) {
+            List<MovieGetDTO> movieGetDTOs = _mapper.Map<List<MovieGetDTO>>(await _repo.GetAllAsync(c => !c.IsDeleted && c.Name.ToLower().Contains(s.ToLower())));
+            PaginatedListDTO<MovieGetDTO> paginatedListDTO = new PaginatedListDTO<MovieGetDTO>(movieGetDTOs, pageIndex, 10);
+
+            return paginatedListDTO;
+        }
     }
 }
