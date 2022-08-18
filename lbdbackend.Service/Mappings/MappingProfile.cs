@@ -46,6 +46,8 @@ namespace lbdbackend.Service.Mappings {
 
             CreateMap<Review, ReviewCreateDTO>();
             CreateMap<ReviewCreateDTO, Review>();
+            CreateMap<ReviewCreateDTO, Review>();
+            CreateMap<Review, ReviewGetDTO>();
 
 
 

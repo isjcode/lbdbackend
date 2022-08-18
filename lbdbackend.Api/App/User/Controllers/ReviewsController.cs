@@ -16,10 +16,16 @@ namespace lbdbackend.Api.App.User.Controllers {
 
         [HttpPut]
         [Route("create")]
-        //[Authorize(Roles = "Member")]
+        [Authorize(Roles = "Member")]
         public async Task<IActionResult> Create(ReviewCreateDTO reviewCreateDTO) {
             await _reviewService.Create(reviewCreateDTO);
             return StatusCode(201);
+        }
+
+        [HttpGet]
+        [Route("getmoviereviews")]
+        public async Task<IActionResult> GetMovieReviews(int movieID) {
+            return Ok(await _reviewService.GetMovieReviews(movieID));
         }
     }
 }

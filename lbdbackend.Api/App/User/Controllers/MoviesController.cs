@@ -1,11 +1,16 @@
 ﻿using lbdbackend.Service.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace lbdbackend.Api.App.User.Controllers {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
+
     public class MoviesController : ControllerBase {
         private readonly IMovieService _movieService;
         private readonly IYearsService _yearsService;
@@ -33,8 +38,8 @@ namespace lbdbackend.Api.App.User.Controllers {
         }
         [HttpGet]
         [Route("searchmovies")]
-        public async Task<IActionResult> GetMoviesPaginated(string s, int pageIndex = 1) {
-            return Ok(await _movieService.GetAllPageIndexAsync(s, pageIndex));
+        public async Task<IActionResult> GetMoviesPaginated(string s, int i = 1) {
+            return Ok(await _movieService.GetAllPageIndexAsync(s, i));
         }
 
     }

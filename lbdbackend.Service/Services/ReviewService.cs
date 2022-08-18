@@ -36,5 +36,22 @@ namespace lbdbackend.Service.Services {
             await _repo.AddAsync(review);
             await _repo.CommitAsync();
         }
+
+        public async Task<List<ReviewGetDTO>> GetMovieReviews(int movieID) {
+            if (movieID == null) {
+                throw new ArgumentNullException();
+            }
+            if (!await _movieRepo.ExistsAsync(m => m.ID == movieID)) {
+                throw new ItemNotFoundException("Movie ID not found.");
+            }
+
+            List<ReviewGetDTO> reviews = new List<ReviewGetDTO>();
+
+           foreach (Review review in await _repo.GetAllAsync(e => !e.IsDeleted && e.MovieId == movieID && e.Body.Trim().Length > 0)) {
+                reviews.Add(_mapper.Map<ReviewGetDTO>(review));
+            }
+
+            return reviews;
+        }
     }
 }
