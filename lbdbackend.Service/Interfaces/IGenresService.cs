@@ -10,7 +10,7 @@ namespace lbdbackend.Service.Interfaces {
         Task Create(GenreCreateDTO genrePostDTO);
         Task DeleteOrRestore(int? id);
         Task Update(int? id, GenreUpdateDTO genreUpdateDTO);
-        Task<List<GenreGetDTO>> GetGenres();
+        Task<List<GenreGetDTO>> GetGenres(int? id);
         Task<GenreGetDTO> GetByID(int? id);
 
 

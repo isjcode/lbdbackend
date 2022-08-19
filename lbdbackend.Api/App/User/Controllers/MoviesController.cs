@@ -14,9 +14,11 @@ namespace lbdbackend.Api.App.User.Controllers {
     public class MoviesController : ControllerBase {
         private readonly IMovieService _movieService;
         private readonly IYearsService _yearsService;
-        public MoviesController(IMovieService movieService, IYearsService yearsService) {
+        private readonly IGenresService _genresService;
+        public MoviesController(IMovieService movieService, IYearsService yearsService, IGenresService genresService) {
             _movieService = movieService;
             _yearsService = yearsService;
+            _genresService = genresService;
         }
 
         [HttpGet]
@@ -40,6 +42,12 @@ namespace lbdbackend.Api.App.User.Controllers {
         [Route("searchmovies")]
         public async Task<IActionResult> GetMoviesPaginated(string s, int i = 1) {
             return Ok(await _movieService.GetAllPageIndexAsync(s, i));
+        }
+
+        [HttpGet]
+        [Route("getmoviegenres")]
+        public async Task<IActionResult> GetMovieGenres(int? id) {
+            return Ok(await _genresService.GetGenres(id));
         }
 
     }

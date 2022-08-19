@@ -15,9 +15,11 @@ namespace lbdbackend.Service.Services {
     public class GenresService : IGenresService {
         private readonly IMapper _mapper;
         private readonly IGenreRepository _repo;
-        public GenresService(IGenreRepository repo, IMapper mapper) {
+        private readonly IJoinMoviesGenresRepository _joinMoviesGenres;
+        public GenresService(IGenreRepository repo, IMapper mapper, IJoinMoviesGenresRepository joinMoviesGenresRepository) {
             _repo = repo;
             _mapper = mapper;
+            _joinMoviesGenres = joinMoviesGenresRepository;
         }
         public async Task Create(GenreCreateDTO genreCreateDTO) {
             if (await _repo.ExistsAsync(e => e.Name.ToLower() == genreCreateDTO.Name.ToLower())) {
@@ -63,10 +65,17 @@ namespace lbdbackend.Service.Services {
         }
 
 
-        public async Task<List<GenreGetDTO>> GetGenres() {
+        public async Task<List<GenreGetDTO>> GetGenres(int? id = null) {
             List<GenreGetDTO> dtos = new List<GenreGetDTO>();
-            foreach (Genre genre in await _repo.GetAllAsync(e => e != null)) {
-                dtos.Add(_mapper.Map<GenreGetDTO>(genre));
+            if (id == null) {
+                foreach (Genre genre in await _repo.GetAllAsync(e => e != null)) {
+                    dtos.Add(_mapper.Map<GenreGetDTO>(genre));
+                }
+            }
+            else {
+                foreach (JoinMoviesGenres row in await _joinMoviesGenres.GetAllAsync(e => e.MovieID == id, "Genre")) {
+                    dtos.Add(_mapper.Map<GenreGetDTO>(row.Genre));
+                }
             }
 
             return dtos;

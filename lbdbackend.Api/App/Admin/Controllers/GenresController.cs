@@ -41,7 +41,7 @@ namespace lbdbackend.Api.App.Admin.Controllers {
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll() {
-            return Ok(await _genreService.GetGenres());
+            return Ok(await _genreService.GetGenres(null));
         }
 
         [HttpGet]
