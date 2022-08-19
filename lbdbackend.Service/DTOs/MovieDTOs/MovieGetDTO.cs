@@ -5,7 +5,8 @@ namespace lbdbackend.Service.DTOs.MovieDTOs {
     public class MovieGetDTO {
         public string Name { get; set; }
         public string Synopsis { get; set; }
-        public int YearID { get; set; }
+        //public int YearID { get; set; }
+        public int YearNumber { get; set; } 
         public string BackgroundImage { get; set; }
 
         public string PosterImage { get; set; }

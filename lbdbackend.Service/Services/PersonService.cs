@@ -19,13 +19,16 @@ namespace lbdbackend.Service.Services {
         private readonly IMapper _mapper;
         private readonly IPersonRepository _repo;
         private readonly IProfessionRepository _professionRepo;
+        private readonly IJoinMoviesPeopleRepository _joinMoviesPeopleRepository;
+
         private readonly IWebHostEnvironment _env;
 
-        public PersonService(IPersonRepository repo, IMapper mapper, IWebHostEnvironment env, IProfessionRepository professionRepo) {
+        public PersonService(IPersonRepository repo, IMapper mapper, IWebHostEnvironment env, IProfessionRepository professionRepo, IJoinMoviesPeopleRepository joinMoviesPeopleRepository) {
             _repo = repo;
             _mapper = mapper;
             _env = env;
             _professionRepo = professionRepo;
+            _joinMoviesPeopleRepository = joinMoviesPeopleRepository;   
         }
         public async Task Create(PersonCreateDTO personCreateDTO) {
             if (await _repo.ExistsAsync(e => e.Name == personCreateDTO.Name)) {
@@ -112,7 +115,19 @@ namespace lbdbackend.Service.Services {
             return _mapper.Map<PersonGetDTO>(await _repo.GetAsync(e => e.ID == id));
         }
 
+        public async Task<List<PersonGetDTO>> GetMoviePeople(int? id) {
+            if (id == null) {
+                throw new ArgumentNullException();
+            }
 
-
+            List<PersonGetDTO> personGetDTOs = new List<PersonGetDTO>();
+            foreach (JoinMoviesPeople row in await _joinMoviesPeopleRepository.GetAllAsync(p => !p.IsDeleted && p.MovieID == id, "Person", "Movie", "Person.Profession")) {
+                var dto = _mapper.Map<PersonGetDTO>(row.Person);
+                dto.ProfessionName = row.Person.Profession.Name;
+                personGetDTOs.Add(dto);
+            }
+            var _ = 1;
+            return personGetDTOs;
+        }
     }
 }

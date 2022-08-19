@@ -174,22 +174,31 @@ namespace lbdbackend.Service.Services {
             if (id == null) {
                 throw new ArgumentNullException("id");
             }
-            return _mapper.Map<MovieGetDTO>(await _repo.GetAsync(e => e.ID == id));
+            var movie = await _repo.GetAsync(e => e.ID == id, "Year");
+            var dto = _mapper.Map<MovieGetDTO>(movie);
+
+            dto.YearNumber = movie.Year.YearNumber;
+            return dto;
         }
 
         public async Task<List<MovieGetDTO>> GetByStr(string str) {
-            List<Movie> movies = await _repo.GetAllAsync(m => m != null);
+            var movies = await _repo.GetAllAsync(m => m != null && m.Name.ToLower().Contains(str.ToLower()), "Year");
             List<MovieGetDTO> movieGetDTOs = new List<MovieGetDTO>();
             foreach (var movie in movies) {
-                if (movie.Name.ToLower().Contains(str.ToLower())) {
-                    movieGetDTOs.Add(_mapper.Map<MovieGetDTO>(movie));
-                }
+                var dto = _mapper.Map<MovieGetDTO>(movie);
+                dto.YearNumber = movie.Year.YearNumber;
+                movieGetDTOs.Add(dto);
             }
             return movieGetDTOs;
         }
 
         public async Task<PaginatedListDTO<MovieGetDTO>> GetAllPageIndexAsync(string s, int i) {
-            List<MovieGetDTO> movieGetDTOs = _mapper.Map<List<MovieGetDTO>>(await _repo.GetAllAsync(c => !c.IsDeleted && c.Name.ToLower().Contains(s.ToLower())));
+            List<MovieGetDTO> movieGetDTOs = new List<MovieGetDTO>();
+            foreach (var item in await _repo.GetAllAsync(c => !c.IsDeleted && c.Name.ToLower().Contains(s.ToLower()), "Year")) {
+                var dto = _mapper.Map<MovieGetDTO>(item);
+                dto.YearNumber = item.Year.YearNumber;
+                movieGetDTOs.Add(dto);
+            }
             PaginatedListDTO<MovieGetDTO> paginatedListDTO = new PaginatedListDTO<MovieGetDTO>(movieGetDTOs, i, 2);
 
             return paginatedListDTO;

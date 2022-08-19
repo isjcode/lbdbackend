@@ -35,6 +35,8 @@ namespace lbdbackend.Service.Mappings {
             CreateMap<PersonCreateDTO, Person>();
             CreateMap<Person, PersonGetDTO>();
             CreateMap<PersonGetDTO, Person>();
+            CreateMap<Person, PersonGetWithProfessionDTO>();
+            CreateMap<PersonGetWithProfessionDTO, Person>();
 
             CreateMap<Movie, MovieCreateDTO>();
             CreateMap<MovieCreateDTO, Movie>();
