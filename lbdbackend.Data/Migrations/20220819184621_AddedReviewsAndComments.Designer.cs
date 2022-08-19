@@ -10,7 +10,7 @@ using lbdbackend.Data;
 namespace lbdbackend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220817144602_AddedReviewsAndComments")]
+    [Migration("20220819184621_AddedReviewsAndComments")]
     partial class AddedReviewsAndComments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,6 +231,9 @@ namespace lbdbackend.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
 
@@ -243,9 +246,6 @@ namespace lbdbackend.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ReviewID")
                         .HasColumnType("int");
 
@@ -254,7 +254,7 @@ namespace lbdbackend.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ParentID");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("ReviewID");
 
@@ -600,9 +600,9 @@ namespace lbdbackend.Data.Migrations
 
             modelBuilder.Entity("lbdbackend.Core.Entities.Comment", b =>
                 {
-                    b.HasOne("lbdbackend.Core.Entities.Comment", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentID");
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("lbdbackend.Core.Entities.Review", "Review")
                         .WithMany()
@@ -666,7 +666,7 @@ namespace lbdbackend.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

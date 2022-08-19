@@ -6,6 +6,5 @@ namespace lbdbackend.Core.Entities {
     public class Comment : BaseEntity {
         public string Body { get; set; }
         public Review Review { get; set; }
-        public Comment Parent { get; set; }
     }
 }

@@ -51,16 +51,16 @@ namespace lbdbackend.Data.Migrations
                     DeletedAt = table.Column<DateTime>(nullable: true),
                     Body = table.Column<string>(nullable: true),
                     ReviewID = table.Column<int>(nullable: true),
-                    ParentID = table.Column<int>(nullable: true)
+                    AppUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Comments_Comments_ParentID",
-                        column: x => x.ParentID,
-                        principalTable: "Comments",
-                        principalColumn: "ID",
+                        name: "FK_Comments_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Reviews_ReviewID",
@@ -71,9 +71,9 @@ namespace lbdbackend.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_ParentID",
+                name: "IX_Comments_AppUserId",
                 table: "Comments",
-                column: "ParentID");
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ReviewID",

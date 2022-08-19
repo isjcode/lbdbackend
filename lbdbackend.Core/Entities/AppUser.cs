@@ -6,6 +6,8 @@ using System.Text;
 namespace lbdbackend.Core.Entities {
     public class AppUser : IdentityUser {
         public string Image { get; set; }
-        
+        public List<Review> Reviews { get; set; }
+        public List<Comment> Comments { get; set; }
+
     }
 }
