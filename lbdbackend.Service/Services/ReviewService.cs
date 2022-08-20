@@ -47,8 +47,10 @@ namespace lbdbackend.Service.Services {
 
             List<ReviewGetDTO> reviews = new List<ReviewGetDTO>();
 
-           foreach (Review review in await _repo.GetAllAsync(e => !e.IsDeleted && e.MovieId == movieID && e.Body.Trim().Length > 0)) {
-                reviews.Add(_mapper.Map<ReviewGetDTO>(review));
+            foreach (Review review in await _repo.GetAllAsync(e => !e.IsDeleted && e.MovieId == movieID && e.Body.Trim().Length > 0, "Owner")) {
+                var dto = _mapper.Map<ReviewGetDTO>(review);
+                dto.UserEmail = review.Owner.Email;
+                reviews.Add(dto);
             }
 
             return reviews;

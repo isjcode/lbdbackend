@@ -9,7 +9,7 @@ namespace lbdbackend.Data.Configurations {
     public class ReviewConfigurations : IEntityTypeConfiguration<Review> {
         public void Configure(EntityTypeBuilder<Review> builder) {
             builder.Property(b => b.Body).HasMaxLength(300);
-            builder.Property(b => b.OwnerId).IsRequired(true);
+            //builder.Property(b => b.AppUserId).IsRequired(true);
             builder.Property(b => b.MovieId).IsRequired(true);
         }
     }

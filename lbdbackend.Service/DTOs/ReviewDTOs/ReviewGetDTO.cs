@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace lbdbackend.Service.DTOs.ReviewDTOs {
     public class ReviewGetDTO {
@@ -7,6 +8,7 @@ namespace lbdbackend.Service.DTOs.ReviewDTOs {
         public int Rating { get; set; }
         public int MovieID { get; set; }
         public string OwnerID { get; set; }
+        public string UserEmail { get; set; }
 
 
     }
