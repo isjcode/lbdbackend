@@ -24,8 +24,16 @@ namespace lbdbackend.Api.App.User.Controllers {
 
         [HttpGet]
         [Route("getmoviereviews")]
-        public async Task<IActionResult> GetMovieReviews(int movieID) {
-            return Ok(await _reviewService.GetMovieReviews(movieID));
+        public async Task<IActionResult> GetMoviesPaginated(int movieID, int i = 1) {
+            return Ok(await _reviewService.GetPaginatedReviews(movieID, i));
         }
+
+        [HttpGet]
+        [Route("getreview")]
+        public async Task<IActionResult> GetReview(int reviewID) {
+            return Ok(await _reviewService.GetReview(reviewID));
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using lbdbackend.Core.Entities;
 using lbdbackend.Core.Repositories;
+using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.ReviewDTOs;
 using lbdbackend.Service.Exceptions;
 using lbdbackend.Service.Interfaces;
@@ -49,11 +50,36 @@ namespace lbdbackend.Service.Services {
 
             foreach (Review review in await _repo.GetAllAsync(e => !e.IsDeleted && e.MovieId == movieID && e.Body.Trim().Length > 0, "Owner")) {
                 var dto = _mapper.Map<ReviewGetDTO>(review);
-                dto.UserEmail = review.Owner.Email;
+                dto.Username = review.Owner.UserName;
+                dto.Image = review.Owner.Image;
                 reviews.Add(dto);
             }
 
             return reviews;
+        }
+        public async Task<PaginatedListDTO<ReviewGetDTO>> GetPaginatedReviews(int movieID, int i) {
+            List<ReviewGetDTO> reviewGetDTOs = new List<ReviewGetDTO>();
+            foreach (var item in await _repo.GetAllAsync(c => !c.IsDeleted && movieID == c.MovieId, "Owner")) {
+                var dto = _mapper.Map<ReviewGetDTO>(item);
+                dto.Username = item.Owner.UserName;
+                dto.Image = item.Owner.Image;
+                reviewGetDTOs.Add(dto);
+            }
+            PaginatedListDTO<ReviewGetDTO> paginatedListDTO = new PaginatedListDTO<ReviewGetDTO>(reviewGetDTOs, i, 2);
+
+            return paginatedListDTO;
+        }
+
+        public async Task<ReviewGetDTO> GetReview(int reviewID) {
+            if (!await _repo.ExistsAsync(r => r.ID == reviewID)) {
+                throw new ItemNotFoundException("Review not found.");
+            }
+
+            var review = await _repo.GetAsync(r => !r.IsDeleted && r.ID == reviewID, "Owner");
+            var dto = _mapper.Map<ReviewGetDTO>(review);
+            dto.Username = review.Owner.UserName;
+            dto.Image = review.Owner.Image;
+            return dto;
         }
     }
 }

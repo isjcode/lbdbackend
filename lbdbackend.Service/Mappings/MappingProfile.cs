@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using lbdbackend.Core.Entities;
 using lbdbackend.Service.DTOs.AccountDTOs;
+using lbdbackend.Service.DTOs.CommentDTOs;
 using lbdbackend.Service.DTOs.GenreDTOs;
 using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.PersonDTOs;
@@ -50,6 +51,9 @@ namespace lbdbackend.Service.Mappings {
             CreateMap<ReviewCreateDTO, Review>();
             CreateMap<ReviewCreateDTO, Review>();
             CreateMap<Review, ReviewGetDTO>();
+
+            CreateMap<CommentCreateDTO, Comment>();
+            CreateMap<Comment, CommentCreateDTO>();
 
 
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lbdbackend.Data;
 
 namespace lbdbackend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220823161008_AddedCommentCount")]
+    partial class AddedCommentCount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,6 +231,9 @@ namespace lbdbackend.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
 
@@ -241,9 +246,6 @@ namespace lbdbackend.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("ReviewID")
                         .HasColumnType("int");
 
@@ -252,7 +254,7 @@ namespace lbdbackend.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("ReviewID");
 
@@ -600,9 +602,9 @@ namespace lbdbackend.Data.Migrations
 
             modelBuilder.Entity("lbdbackend.Core.Entities.Comment", b =>
                 {
-                    b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", null)
                         .WithMany("Comments")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("lbdbackend.Core.Entities.Review", "Review")
                         .WithMany()

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 
 namespace lbdbackend.Service.DTOs.ReviewDTOs {
     public class ReviewGetDTO {
+        public int Id { get; set; }
         public string Body { get; set; }
         public int Rating { get; set; }
         public int MovieID { get; set; }
         public string OwnerID { get; set; }
-        public string UserEmail { get; set; }
+        public string Username { get; set; }
+        public string Image { get; set; }
+        public int CommentCount { get; set; }
 
 
     }
