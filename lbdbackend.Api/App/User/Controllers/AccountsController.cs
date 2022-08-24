@@ -92,6 +92,23 @@ namespace lbdbackend.Api.App.User.Controllers {
             return Ok(await _userService.GetUserMain(userName));
         }
 
+        [HttpPost]
+        [Route("follow")]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> Follow(string followerUsername, string followeeUsername) {
+            await _userService.Follow(followerUsername, followeeUsername);
+            return Ok();
+        }
+        [HttpGet]
+        [Route("checkfollow")]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> CheckFollow(string followerUsername, string followeeUsername) {
+            if (await _userService.CheckFollow(followerUsername, followeeUsername)) {
+                return Ok("true");
+            }
+            return Ok("false");
+        }
+
 
         //[HttpGet]
         //public async Task<IActionResult> CreateRoles() {

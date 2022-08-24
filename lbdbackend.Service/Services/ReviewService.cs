@@ -31,6 +31,9 @@ namespace lbdbackend.Service.Services {
             if (await _userManager.FindByIdAsync(reviewCreateDTO.OwnerID) == null) {
                 throw new ItemNotFoundException($"User ID doesn't exist.");
             }
+            if (await _repo.ExistsAsync(r => r.Body == reviewCreateDTO.Body && r.Rating == reviewCreateDTO.Rating)) {
+                throw new AlreadyExistException("Review already exists");
+            }
             Review review = _mapper.Map<Review>(reviewCreateDTO);
             review.CreatedAt = DateTime.UtcNow;
 

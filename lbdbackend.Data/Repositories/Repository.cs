@@ -50,6 +50,10 @@ namespace lbdbackend.Data.Repositories {
 
             return await query.ToListAsync();
         }
+        public async Task<int> GetCount(Expression<Func<TEntity, bool>> expression) {
+            IQueryable<TEntity> query = _context.Set<TEntity>().Where(expression);
+            return await query.CountAsync();
+        }
 
 
 
@@ -66,6 +70,7 @@ namespace lbdbackend.Data.Repositories {
                 }
             }
         }
+
 
     }
 }
