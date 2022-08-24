@@ -7,6 +7,7 @@ namespace lbdbackend.Core.Entities {
         public string Body { get; set; }
         public string OwnerId { get; set; }
         public AppUser Owner { get; set; }
+        public int ReviewId { get; set; }
         public Review Review { get; set; }
     }
 }

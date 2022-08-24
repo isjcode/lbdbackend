@@ -34,9 +34,47 @@ namespace lbdbackend.Service.Services {
                 throw new ItemNotFoundException("User ID doesn't exist.");
             }
             Comment comment = _mapper.Map<Comment>(commentCreateDTO);
-
+            Review review = await _reviewRepo.GetAsync(r => r.ID == commentCreateDTO.ReviewID);
+            review.CommentCount += 1;
             await _repo.AddAsync(comment);
             await _repo.CommitAsync();
         }
+
+        public async Task<List<CommentGetDTO>> GetReviewComments(int? reviewID) {
+            if (reviewID == null) {
+                throw new ArgumentNullException();
+            }
+
+            if (!await _reviewRepo.ExistsAsync(r => r.ID == reviewID)) {
+                throw new ItemNotFoundException("Review not found.");
+            }
+
+            List<CommentGetDTO> dtos = new List<CommentGetDTO>();
+
+            foreach (Comment comment in await _repo.GetAllAsync(c => !c.IsDeleted && c.ReviewId == reviewID, "Owner")) {
+                var dto = _mapper.Map<CommentGetDTO>(comment);
+                dto.Username = comment.Owner.UserName;
+                dtos.Add(dto);
+            }
+
+            return dtos;
+        }
+        public async Task Delete(int? id) {
+            if (id == null) {
+                throw new BadRequestException("ID can't be null.");
+            }
+            if (!await _repo.ExistsAsync(e => e.ID == id)) {
+                throw new ItemNotFoundException("ID not found.");
+            }
+
+            Comment comment = await _repo.GetAsync(c => c.ID == id);
+            comment.IsDeleted = true;
+            comment.DeletedAt = DateTime.UtcNow.AddHours(4);
+
+            Review review = await _reviewRepo.GetAsync(r => r.ID == comment.ReviewId);
+            review.CommentCount -= 1;
+            await _repo.CommitAsync();
+        }
+
     }
 }

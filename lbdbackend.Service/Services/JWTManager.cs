@@ -44,7 +44,7 @@ namespace lbdbackend.Service.Services {
                     audience: Configuration.GetSection("JWT:Audience").Value,
                     claims: claims,
                     signingCredentials: signingCredentials,
-                    expires: DateTime.Now.AddHours(1)
+                    expires: DateTime.Now.AddHours(8)
                 );
 
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();

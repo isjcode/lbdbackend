@@ -9,5 +9,8 @@ using System.Threading.Tasks;
 namespace lbdbackend.Service.Interfaces {
     public interface ICommentService {
         Task CreateComment(CommentCreateDTO commentCreateDTO);
+        Task<List<CommentGetDTO>> GetReviewComments(int? reviewID);
+        Task Delete(int? id);
+
+        }
     }
-}

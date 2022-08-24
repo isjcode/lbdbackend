@@ -8,6 +8,7 @@ namespace lbdbackend.Core.Entities {
         public string Image { get; set; }
         public List<Review> Reviews { get; set; }
         public List<Comment> Comments { get; set; }
-
+        public List<Relationship> Followers { get; set; }
+        public List<Relationship> Followings { get; set; }
     }
 }

@@ -28,9 +28,29 @@ namespace lbdbackend.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Relationship> Relationships { get; set; }
+        //public DbSet<UserFollower> Followers { get; set; }
+        //public DbSet<UserFollowing> Followings { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<UserFollower>()
+            //    .HasOne(p => p.User)
+            //    .WithMany(t => t.Followers)
+            //    .HasForeignKey(m => m.UserId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Relationship>()
+                .HasOne(p => p.Follower)
+                .WithMany(t => t.Followings)
+                .HasForeignKey(m => m.FollowerId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Relationship>()
+                .HasOne(p => p.Followee)
+                .WithMany(p => p.Followers)
+                .HasForeignKey(p => p.FolloweeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
             base.OnModelCreating(modelBuilder);

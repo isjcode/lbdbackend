@@ -17,15 +17,17 @@ namespace lbdbackend.Api.App.User.Controllers {
     public class AccountsController : ControllerBase {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IJWTManager _jwtManager;
 
 
-        public AccountsController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IJWTManager jwtManager) {
+        public AccountsController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IJWTManager jwtManager, IUserService userService) {
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
             _jwtManager = jwtManager;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -82,6 +84,12 @@ namespace lbdbackend.Api.App.User.Controllers {
 
         public async Task<IActionResult> CheckToken() {
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("getuser")]
+        public async Task<IActionResult> GetUser(string userName) {
+            return Ok(await _userService.GetUserMain(userName));
         }
 
 

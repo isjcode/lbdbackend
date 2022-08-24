@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace lbdbackend.Service.Interfaces {
     public interface IReviewService {
         Task Create(ReviewCreateDTO reviewCreateDTO);
-        Task<List<ReviewGetDTO>> GetMovieReviews(int movieID);
+        Task<List<ReviewGetDTO>> GetMovieReviews(int? movieID);
         Task<PaginatedListDTO<ReviewGetDTO>> GetPaginatedReviews(int movieID, int i);
         Task<ReviewGetDTO> GetReview(int reviewID);
     }

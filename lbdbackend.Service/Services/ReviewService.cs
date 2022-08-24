@@ -38,7 +38,7 @@ namespace lbdbackend.Service.Services {
             await _repo.CommitAsync();
         }
 
-        public async Task<List<ReviewGetDTO>> GetMovieReviews(int movieID) {
+        public async Task<List<ReviewGetDTO>> GetMovieReviews(int? movieID) {
             if (movieID == null) {
                 throw new ArgumentNullException();
             }

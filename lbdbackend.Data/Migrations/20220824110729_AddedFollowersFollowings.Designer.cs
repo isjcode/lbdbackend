@@ -10,8 +10,8 @@ using lbdbackend.Data;
 namespace lbdbackend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220823190047_ChangedComment")]
-    partial class ChangedComment
+    [Migration("20220824110729_AddedFollowersFollowings")]
+    partial class AddedFollowersFollowings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,7 +232,9 @@ namespace lbdbackend.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -244,9 +246,10 @@ namespace lbdbackend.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("OwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ReviewID")
+                    b.Property<int>("ReviewId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -256,7 +259,7 @@ namespace lbdbackend.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.HasIndex("ReviewID");
+                    b.HasIndex("ReviewId");
 
                     b.ToTable("Comments");
                 });
@@ -522,6 +525,74 @@ namespace lbdbackend.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("lbdbackend.Core.Entities.UserFollower", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FollowerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FollowerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Followers");
+                });
+
+            modelBuilder.Entity("lbdbackend.Core.Entities.UserFollowing", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FolloweeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FolloweeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Followings");
+                });
+
             modelBuilder.Entity("lbdbackend.Core.Entities.Year", b =>
                 {
                     b.Property<int>("ID")
@@ -604,11 +675,15 @@ namespace lbdbackend.Data.Migrations
                 {
                     b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
                         .WithMany("Comments")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("lbdbackend.Core.Entities.Review", "Review")
                         .WithMany()
-                        .HasForeignKey("ReviewID");
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("lbdbackend.Core.Entities.JoinMoviesGenres", b =>
@@ -670,6 +745,28 @@ namespace lbdbackend.Data.Migrations
                     b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
                         .WithMany("Reviews")
                         .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("lbdbackend.Core.Entities.UserFollower", b =>
+                {
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", "Follower")
+                        .WithMany()
+                        .HasForeignKey("FollowerId");
+
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("lbdbackend.Core.Entities.UserFollowing", b =>
+                {
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", "Followee")
+                        .WithMany()
+                        .HasForeignKey("FolloweeId");
+
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

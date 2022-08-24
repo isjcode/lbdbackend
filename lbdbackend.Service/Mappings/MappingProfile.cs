@@ -7,6 +7,7 @@ using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.DTOs.ProfessionDTOs;
 using lbdbackend.Service.DTOs.ReviewDTOs;
+using lbdbackend.Service.DTOs.UserDTOs;
 using lbdbackend.Service.DTOs.YearDTOs;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -54,6 +55,12 @@ namespace lbdbackend.Service.Mappings {
 
             CreateMap<CommentCreateDTO, Comment>();
             CreateMap<Comment, CommentCreateDTO>();
+            CreateMap<CommentGetDTO, Comment>();
+            CreateMap<Comment, CommentGetDTO>();
+
+            CreateMap<UserGetDTO, AppUser>();
+            CreateMap<AppUser, UserGetDTO>();
+
 
 
 

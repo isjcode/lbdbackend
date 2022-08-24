@@ -14,12 +14,24 @@ namespace lbdbackend.Api.App.User.Controllers {
             _commentService = commentService;   
         }
         [HttpPut]
-        [Route("createcomment")]
+        [Route("create")]
         [Authorize(Roles = "Member")]
 
-        public async Task<IActionResult> CreateComment(CommentCreateDTO createCommentDTO) {
+        public async Task<IActionResult> Create(CommentCreateDTO createCommentDTO) {
             await _commentService.CreateComment(createCommentDTO);
             return StatusCode(201);
+        }
+        [HttpGet]
+        [Route("getreviewcomments")]
+        public async Task<IActionResult> GetReviewComments(int? reviewID) {
+            return Ok(await _commentService.GetReviewComments(reviewID));
+        }
+        [HttpPost]
+        [Route("deletecomment")]
+        [Authorize(Roles = "Member, Admin, Superadmin")]
+        public async Task<IActionResult> DeleteComment(int? commentID) {
+            await _commentService.Delete(commentID);
+            return Ok();
         }
     }
 }
