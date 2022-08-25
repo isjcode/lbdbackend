@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace lbdbackend.Service.Interfaces {
     public interface IUserService {
         Task<UserGetDTO> GetUserMain(string userName);
-        Task Follow(string followerId, string followeeId);
+        Task<bool> Follow(string followerId, string followeeId);
         Task<bool> CheckFollow(string followerUsername, string followeeUsername);
     }
 }

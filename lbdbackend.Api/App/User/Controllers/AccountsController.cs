@@ -96,8 +96,8 @@ namespace lbdbackend.Api.App.User.Controllers {
         [Route("follow")]
         [Authorize(Roles = "Member")]
         public async Task<IActionResult> Follow(string followerUsername, string followeeUsername) {
-            await _userService.Follow(followerUsername, followeeUsername);
-            return Ok();
+            var isFollowing = await _userService.Follow(followerUsername, followeeUsername);
+            return Ok(isFollowing);
         }
         [HttpGet]
         [Route("checkfollow")]
@@ -108,8 +108,6 @@ namespace lbdbackend.Api.App.User.Controllers {
             }
             return Ok("false");
         }
-
-
         //[HttpGet]
         //public async Task<IActionResult> CreateRoles() {
         //    //initializing custom roles 

@@ -41,16 +41,18 @@ namespace lbdbackend.Service.Services {
             if (followee == null) {
                 throw new ItemNotFoundException("Followee id not found.");
             }
-            if (await _relationshipRepo.ExistsAsync(r => r.FollowerId == follower.Id && r.FolloweeId == followee.Id)) {
+            if (await _relationshipRepo.ExistsAsync(r => !r.IsDeleted && r.FollowerId == follower.Id && r.FolloweeId == followee.Id)) {
                 return true;
             }
             return false;
         }
 
-        public async Task Follow(string followerUsername, string followeeUsername) {
+        public async Task<bool> Follow(string followerUsername, string followeeUsername) {
             if (followerUsername == followeeUsername) {
                 throw new BadRequestException("Usernames can't be same.");
             }
+
+            bool isFollowing = false;
 
             var follower = await _repo.FindByNameAsync(followerUsername);
             var followee = await _repo.FindByNameAsync(followeeUsername);
@@ -62,14 +64,29 @@ namespace lbdbackend.Service.Services {
             if (followee == null) {
                 throw new ItemNotFoundException("Followee id not found.");
             }
-
-            Relationship relationship = new Relationship();
             
-            relationship.FollowerId = follower.Id;
-            relationship.FolloweeId = followee.Id;
+            Relationship relationship = new Relationship();
+            if (await _relationshipRepo.ExistsAsync(r => r.FollowerId == follower.Id && r.FolloweeId == followee.Id)) {
+                var row = _relationshipRepo.GetAsync(r => r.FollowerId == follower.Id && r.FolloweeId == followee.Id).Result;
+                if (row.IsDeleted) {
+                    row.IsDeleted = false;
+                    isFollowing = true;
+                }
+                else {
+                    row.IsDeleted = true;
+                    isFollowing = false;
+                }
+            }
+            else {
+                relationship.FollowerId = follower.Id;
+                relationship.FolloweeId = followee.Id;
+                await _relationshipRepo.AddAsync(relationship);
+                isFollowing = true;
+            }
+            
 
-            await _relationshipRepo.AddAsync(relationship);
             await _relationshipRepo.CommitAsync();
+            return isFollowing;
         }
 
         public async Task<UserGetDTO> GetUserMain(string userName) {
@@ -80,8 +97,8 @@ namespace lbdbackend.Service.Services {
             }
             string userId = user.Id;
             
-            int followeeCount = await _relationshipRepo.GetCount(e => e.FollowerId == userId);
-            int followerCount = await _relationshipRepo.GetCount(e => e.FolloweeId == userId);
+            int followeeCount = await _relationshipRepo.GetCount(e => !e.IsDeleted && e.FollowerId == userId);
+            int followerCount = await _relationshipRepo.GetCount(e => !e.IsDeleted && e.FolloweeId == userId);
 
 
             UserGetDTO userGetDTO = new UserGetDTO();

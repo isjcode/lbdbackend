@@ -32,7 +32,26 @@ namespace lbdbackend.Api.App.User.Controllers {
         [Route("getreview")]
         public async Task<IActionResult> GetReview(int reviewID) {
             return Ok(await _reviewService.GetReview(reviewID));
+        }        
+        [HttpGet]
+        [Route("getrecentreviews")]
+        public async Task<IActionResult> GetRecentReviews(string userName) {
+            return Ok(await _reviewService.GetRecentReviews(userName));
         }
+        [HttpGet]
+        [Route("getuserreviews")]
+        public async Task<IActionResult> GetUserReviews(string userName, int i = 1) {
+            return Ok(await _reviewService.GetPaginatedUserReviews(userName, i));
+        }
+        [HttpGet]
+        [Route("getalluserreviews")]
+        public async Task<IActionResult> GetAllUserReviews(string userName, int i = 1) {
+            return Ok(await _reviewService.GetAllUserReviews(userName, i));
+        }
+
+
+
+
 
 
     }

@@ -12,6 +12,7 @@ namespace lbdbackend.Service.DTOs.ReviewDTOs {
         public string Username { get; set; }
         public string Image { get; set; }
         public int CommentCount { get; set; }
+        public string MovieName { get; set; }
 
 
     }
