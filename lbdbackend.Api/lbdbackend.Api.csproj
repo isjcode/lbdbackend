@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Assets\**" />
+    <Content Remove="wwwroot\Assets\**" />
+    <EmbeddedResource Remove="wwwroot\Assets\**" />
+    <None Remove="wwwroot\Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.27" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.27" />
@@ -22,9 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Assets\Images\Movies\Backgrounds\" />
-    <Folder Include="wwwroot\Assets\Images\Movies\Posters\" />
-    <Folder Include="wwwroot\Assets\Images\People\" />
+    <Folder Include="wwwroot\images\movies\backgroundimages\" />
+    <Folder Include="wwwroot\images\movies\posterimages\" />
+    <Folder Include="wwwroot\images\people\" />
   </ItemGroup>
 
 

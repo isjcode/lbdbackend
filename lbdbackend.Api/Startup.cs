@@ -63,15 +63,20 @@ namespace lbdbackend.Api {
                 c.AddFluentValidationRulesScoped();
             });
 
-            services.AddCors(options => {
-                options.AddPolicy("ClientPermission", policy => {
-                    policy.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .SetIsOriginAllowed(_ => true)
-                        .AllowCredentials();
-                });
-            });
-            services.AddMvc();
+            services.AddCors(options => options.AddDefaultPolicy(policy =>
+            policy.WithOrigins("http://localhost:3000", "https://localhost:3001", "https://localhost:3002", "https://localhost:3003").AllowAnyHeader().AllowAnyMethod()
+));
+
+
+            //services.AddCors(options => {
+            //    options.AddPolicy("ClientPermission", policy => {
+            //        policy.AllowAnyHeader()
+            //            .AllowAnyMethod()
+            //            .SetIsOriginAllowed(_ => true)
+            //            .AllowCredentials();
+            //    });
+            //});
+            //services.AddMvc();
 
 
             services.AddControllers().AddNewtonsoftJson(options => {
@@ -138,6 +143,10 @@ namespace lbdbackend.Api {
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRelationshipRepository, RelationshipRepository>();
+
+            services.AddScoped<IMovieListService, MovieListService>();
+            services.AddScoped<IMovieListRepository, MovieListRepository>();
+            services.AddScoped<IJoinMoviesListsRepository, JoinMoviesListsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -171,6 +180,7 @@ namespace lbdbackend.Api {
                 });
             });
 
+            app.UseCors();
             app.UseRouting();
 
             app.UseSwagger();
@@ -184,7 +194,7 @@ namespace lbdbackend.Api {
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors("ClientPermission");
+            //app.UseCors("ClientPermission");
 
 
 

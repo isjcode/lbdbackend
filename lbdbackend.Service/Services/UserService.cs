@@ -2,6 +2,7 @@
 using lbdbackend.Core.Entities;
 using lbdbackend.Core.Repositories;
 using lbdbackend.Service.DTOs.GenreDTOs;
+using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.UserDTOs;
 using lbdbackend.Service.Exceptions;
 using lbdbackend.Service.Interfaces;
@@ -19,11 +20,13 @@ namespace lbdbackend.Service.Services {
         private readonly UserManager<AppUser> _repo;
         private readonly IRelationshipRepository _relationshipRepo;
         private readonly IReviewRepository _reviewRepo;
-        public UserService(UserManager<AppUser> repo, IMapper mapper, IRelationshipRepository relationshipRepository, IReviewRepository reviewRepository) {
+        private readonly UserManager<AppUser> _userManager;
+        public UserService(UserManager<AppUser> repo, IMapper mapper, IRelationshipRepository relationshipRepository, IReviewRepository reviewRepository, UserManager<AppUser> userManager) {
             _repo = repo;
             _mapper = mapper;
             _relationshipRepo = relationshipRepository;
             _reviewRepo = reviewRepository;
+            _userManager = userManager;
         }
 
         public async Task<bool> CheckFollow(string followerUsername, string followeeUsername) {
@@ -89,6 +92,52 @@ namespace lbdbackend.Service.Services {
             return isFollowing;
         }
 
+        public async Task<PaginatedListDTO<UserGetDTO>> GetUserFollowers(string userName, int i) {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) {
+                throw new ItemNotFoundException("User not found.");
+            }
+
+            List<UserGetDTO> userGetDTOs = new List<UserGetDTO>();
+
+            var followers = await _relationshipRepo.GetAllAsync(f => !f.IsDeleted && f.FolloweeId == user.Id, "Follower");
+
+            foreach (var f in followers) {
+                var dto = new UserGetDTO();
+                dto.Image = f.Follower.Image;
+                dto.UserName = f.Follower.UserName;
+                userGetDTOs.Add(dto);
+            }
+
+            PaginatedListDTO<UserGetDTO> paginatedListDTO = new PaginatedListDTO<UserGetDTO>(userGetDTOs, i, 5);
+
+
+            return paginatedListDTO;
+        }
+
+        public async Task<PaginatedListDTO<UserGetDTO>> GetUserFollowees(string userName, int i) {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) {
+                throw new ItemNotFoundException("User not found.");
+            }
+
+            List<UserGetDTO> userGetDTOs = new List<UserGetDTO>();
+
+            var followees = await _relationshipRepo.GetAllAsync(f => !f.IsDeleted && f.FollowerId == user.Id, "Followee");
+
+            foreach (var f in followees) {
+                var dto = new UserGetDTO();
+                dto.Image = f.Followee.Image;
+                dto.UserName = f.Followee.UserName;
+                userGetDTOs.Add(dto);
+            }
+
+            PaginatedListDTO<UserGetDTO> paginatedListDTO = new PaginatedListDTO<UserGetDTO>(userGetDTOs, i, 5);
+
+
+            return paginatedListDTO;
+        }
+
         public async Task<UserGetDTO> GetUserMain(string userName) {
             var user = await _repo.FindByNameAsync(userName);
 
@@ -117,6 +166,8 @@ namespace lbdbackend.Service.Services {
 
             return userGetDTO;
         }
+
+
 
     }
 }

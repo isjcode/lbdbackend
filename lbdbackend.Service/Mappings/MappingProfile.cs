@@ -3,6 +3,7 @@ using lbdbackend.Core.Entities;
 using lbdbackend.Service.DTOs.AccountDTOs;
 using lbdbackend.Service.DTOs.CommentDTOs;
 using lbdbackend.Service.DTOs.GenreDTOs;
+using lbdbackend.Service.DTOs.ListDTOs;
 using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.DTOs.ProfessionDTOs;
@@ -60,6 +61,11 @@ namespace lbdbackend.Service.Mappings {
 
             CreateMap<UserGetDTO, AppUser>();
             CreateMap<AppUser, UserGetDTO>();
+
+            CreateMap<MovieListCreateDTO, MovieList>();
+            CreateMap<MovieList, MovieListCreateDTO>();
+            CreateMap<MovieListGetDTO, MovieList>();
+            CreateMap<MovieList, MovieGetDTO>();
 
 
 

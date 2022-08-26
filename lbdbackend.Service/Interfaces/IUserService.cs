@@ -1,5 +1,6 @@
 ﻿using lbdbackend.Core.Entities;
 using lbdbackend.Service.DTOs.GenreDTOs;
+using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.UserDTOs;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<UserGetDTO> GetUserMain(string userName);
         Task<bool> Follow(string followerId, string followeeId);
         Task<bool> CheckFollow(string followerUsername, string followeeUsername);
+        Task<PaginatedListDTO<UserGetDTO>> GetUserFollowers(string userName, int i);
+        Task<PaginatedListDTO<UserGetDTO>> GetUserFollowees(string userName, int i);
     }
 }

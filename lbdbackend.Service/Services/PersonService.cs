@@ -51,7 +51,7 @@ namespace lbdbackend.Service.Services {
 
             Person person = _mapper.Map<Person>(personCreateDTO);
 
-            person.Image = await personCreateDTO.File.CreateFileAsync(_env, "src", "assets", "images", "people");
+            person.Image = await personCreateDTO.File.CreateFileAsync(_env, "images", "people");
 
             person.CreatedAt = DateTime.UtcNow;
 

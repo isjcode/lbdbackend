@@ -325,6 +325,40 @@ namespace lbdbackend.Data.Migrations
                     b.ToTable("JoinMoviesGenres");
                 });
 
+            modelBuilder.Entity("lbdbackend.Core.Entities.JoinMoviesLists", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieListId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("MovieListId");
+
+                    b.ToTable("JoinMoviesLists");
+                });
+
             modelBuilder.Entity("lbdbackend.Core.Entities.JoinMoviesPeople", b =>
                 {
                     b.Property<int>("ID")
@@ -406,6 +440,43 @@ namespace lbdbackend.Data.Migrations
                     b.HasIndex("YearID");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("lbdbackend.Core.Entities.MovieList", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MovieCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("MovieLists");
                 });
 
             modelBuilder.Entity("lbdbackend.Core.Entities.Person", b =>
@@ -666,6 +737,21 @@ namespace lbdbackend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("lbdbackend.Core.Entities.JoinMoviesLists", b =>
+                {
+                    b.HasOne("lbdbackend.Core.Entities.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("lbdbackend.Core.Entities.MovieList", "MovieList")
+                        .WithMany("JoinMoviesLists")
+                        .HasForeignKey("MovieListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("lbdbackend.Core.Entities.JoinMoviesPeople", b =>
                 {
                     b.HasOne("lbdbackend.Core.Entities.Movie", "Movie")
@@ -686,6 +772,15 @@ namespace lbdbackend.Data.Migrations
                     b.HasOne("lbdbackend.Core.Entities.Year", "Year")
                         .WithMany("Movies")
                         .HasForeignKey("YearID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("lbdbackend.Core.Entities.MovieList", b =>
+                {
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

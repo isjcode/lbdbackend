@@ -108,6 +108,20 @@ namespace lbdbackend.Api.App.User.Controllers {
             }
             return Ok("false");
         }
+
+        [HttpGet]
+        [Route("getuserfollowers")]
+        public async Task<IActionResult> GetUserFollowers(string userName, int i = 1) {
+            return Ok(await _userService.GetUserFollowers(userName, i));
+        }
+
+        [HttpGet]
+        [Route("getuserfollowees")]
+        public async Task<IActionResult> GetUserFollowees(string userName, int i = 1) {
+            return Ok(await _userService.GetUserFollowees(userName, i));
+        }
+
+
         //[HttpGet]
         //public async Task<IActionResult> CreateRoles() {
         //    //initializing custom roles 

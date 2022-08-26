@@ -29,6 +29,8 @@ namespace lbdbackend.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
+        public DbSet<MovieList> MovieLists { get; set; }
+        public DbSet<JoinMoviesLists> JoinMoviesLists { get; set; }
         //public DbSet<UserFollower> Followers { get; set; }
         //public DbSet<UserFollowing> Followings { get; set; }
         

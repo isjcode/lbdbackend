@@ -114,8 +114,8 @@ namespace lbdbackend.Service.Services {
             Movie movie = await _repo.GetAsync(e => e.ID == movieUpdateDTO.ID);
             movie.Name = movieUpdateDTO.Name;
             movie.Synopsis = movieUpdateDTO.Synopsis;
-            movie.PosterImage = await movieUpdateDTO.PosterImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "posterimages");
-            movie.BackgroundImage = await movieUpdateDTO.BackgroundImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "backgroundimages");
+            movie.PosterImage = await movieUpdateDTO.PosterImage.CreateFileAsync(_env, "images", "movies", "posterimages");
+            movie.BackgroundImage = await movieUpdateDTO.BackgroundImage.CreateFileAsync(_env, "images", "movies", "backgroundimages");
             movie.YearID = movieUpdateDTO.YearID;
             movie.UpdatedAt = DateTime.UtcNow;
 

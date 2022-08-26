@@ -16,27 +16,44 @@ namespace P225Allup.Extensions {
             return (file.Length / 1024) > size;
         }
 
-        public async static Task<string> CreateFileAsync(this IFormFile file, IWebHostEnvironment env, params string[] folders) {
-            string fileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + file.FileName;
+        //public async static Task<string> CreateFileAsync(this IFormFile file, IWebHostEnvironment env, params string[] folders) {
+        //    string fileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + file.FileName;
 
-            string fullPath1 = "C:\\Users\\lasau\\Projects\\lbdfrontend\\adminpanel";
-            string fullPath2 = "C:\\Users\\lasau\\Projects\\lbdfrontend\\website";
+        //    string fullPath1 = "C:\\Users\\lasau\\Projects\\lbdfrontend\\adminpanel";
+        //    string fullPath2 = "C:\\Users\\lasau\\Projects\\lbdfrontend\\website";
+
+        //    foreach (string folder in folders) {
+        //        fullPath1 = Path.Combine(fullPath1, folder);
+        //        fullPath2 = Path.Combine(fullPath2, folder);
+        //    }
+
+        //    fullPath1 = Path.Combine(fullPath1, fileName);
+        //    fullPath2 = Path.Combine(fullPath2, fileName);
+
+        //    using (FileStream stream = new FileStream(fullPath1, FileMode.Create)) {
+        //        await file.CopyToAsync(stream);
+        //    }
+        //    using (FileStream stream = new FileStream(fullPath2, FileMode.Create)) {
+        //        await file.CopyToAsync(stream);
+        //    }
+        //    fullPath2 = Path.Combine(fullPath2, fileName);
+
+        //    return fileName;
+        //}
+        public async static Task<string> CreateFileAsync(this IFormFile file, IWebHostEnvironment env, params string[] folders) {
+            string fileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMdd") + "_" + file.FileName;
+
+            string fullPath = Path.Combine(env.WebRootPath);
 
             foreach (string folder in folders) {
-                fullPath1 = Path.Combine(fullPath1, folder);
-                fullPath2 = Path.Combine(fullPath2, folder);
+                fullPath = Path.Combine(fullPath, folder);
             }
 
-            fullPath1 = Path.Combine(fullPath1, fileName);
-            fullPath2 = Path.Combine(fullPath2, fileName);
+            fullPath = Path.Combine(fullPath, fileName);
 
-            using (FileStream stream = new FileStream(fullPath1, FileMode.Create)) {
+            using (FileStream stream = new FileStream(fullPath, FileMode.Create)) {
                 await file.CopyToAsync(stream);
             }
-            using (FileStream stream = new FileStream(fullPath2, FileMode.Create)) {
-                await file.CopyToAsync(stream);
-            }
-            fullPath2 = Path.Combine(fullPath2, fileName);
 
             return fileName;
         }

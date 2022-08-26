@@ -1,0 +1,88 @@
+﻿using Amazon.SimpleSystemsManagement.Model;
+using AutoMapper;
+using lbdbackend.Core.Entities;
+using lbdbackend.Core.Repositories;
+using lbdbackend.Service.DTOs.ListDTOs;
+using lbdbackend.Service.DTOs.MovieDTOs;
+using lbdbackend.Service.Exceptions;
+using lbdbackend.Service.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lbdbackend.Service.Services {
+    public class MovieListService : IMovieListService {
+        private readonly IJoinMoviesListsRepository _repo;
+        private readonly IMovieListRepository _movieListRepo;
+        private readonly IMovieRepository _movieRepository;
+        private readonly IMapper _mapper;
+        private readonly UserManager<AppUser> _userManager;
+        public MovieListService(IJoinMoviesListsRepository repo, IMapper mapper, IReviewRepository reviewRepo, UserManager<AppUser> userManager, IMovieListRepository movieListRepository, IMovieRepository movieRepository) {
+            _repo = repo;
+            _mapper = mapper;
+            _userManager = userManager;
+            _movieListRepo = movieListRepository;
+            _movieRepository = movieRepository;
+        }
+
+        public async Task Create(MovieListCreateDTO movieListCreateDTO) {
+            if (await _userManager.FindByNameAsync(movieListCreateDTO.OwnerUsername) == null) {
+                throw new ItemNotFoundException("Username not found.");
+            }
+            foreach (int movieId in movieListCreateDTO.Movies) {
+                if (!await _movieRepository.ExistsAsync(m => m.ID == movieId)) {
+                    throw new ItemNotFoundException("Movie not found");
+                }
+            }
+
+            MovieList movieList = _mapper.Map<MovieList>(movieListCreateDTO);
+            var user = await _userManager.FindByNameAsync(movieListCreateDTO.OwnerUsername);
+            if (await _movieListRepo.ExistsAsync(l => l.OwnerId == user.Id && l.Name == movieListCreateDTO.Name)) {
+                throw new AlreadyExistsException("List already exists.");
+            }
+            movieList.OwnerId = user.Id;
+            movieList.MovieCount = movieListCreateDTO.Movies.Count;
+            await _movieListRepo.AddAsync(movieList);
+            await _repo.CommitAsync();
+
+            foreach (int movieId in movieListCreateDTO.Movies) {
+                var row = new JoinMoviesLists();
+                if (!await _movieRepository.ExistsAsync(m => m.ID == movieId)) {
+                    throw new ItemNotFoundException("Movie not found");
+                }
+                row.MovieListId = movieList.ID;
+                row.MovieId = movieId;
+                await _repo.AddAsync(row);
+            }
+
+
+            await _movieListRepo.CommitAsync();
+        }
+
+        public async Task<PaginatedListDTO<MovieListGetDTO>> GetUserLists(string userName, int i) {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) {
+                throw new ItemNotFoundException("User not found.");
+            }
+
+            List<MovieListGetDTO> movieListGetDTOs = new List<MovieListGetDTO>();
+
+            var movieLists = await _movieListRepo.GetAllAsync(l => l.OwnerId == user.Id);
+
+            foreach (var movieList in movieLists) {
+                //var dto = _mapper.Map<MovieListGetDTO>(movieList);
+                var dto = new MovieListGetDTO();
+                dto.OwnerUsername = user.UserName;
+                dto.MovieCount = movieList.MovieCount;
+                dto.Name = movieList.Name;
+                movieListGetDTOs.Add(dto);
+            }
+
+            PaginatedListDTO<MovieListGetDTO> paginatedListDTO = new PaginatedListDTO<MovieListGetDTO>(movieListGetDTOs, i, 10);
+
+            return paginatedListDTO;
+        }
+    }
+}
