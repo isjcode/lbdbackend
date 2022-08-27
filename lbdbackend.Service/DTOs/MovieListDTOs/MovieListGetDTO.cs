@@ -7,5 +7,6 @@ namespace lbdbackend.Service.DTOs.ListDTOs {
         public string Name { get; set; }
         public string OwnerUsername { get; set; }
         public int MovieCount { get; set; }
+        public int Id { get; set; }
     }
 }

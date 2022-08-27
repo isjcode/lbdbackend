@@ -16,15 +16,17 @@ namespace lbdbackend.Service.Services {
     public class MovieListService : IMovieListService {
         private readonly IJoinMoviesListsRepository _repo;
         private readonly IMovieListRepository _movieListRepo;
+        private readonly IJoinMoviesListsRepository _joinMoviesListsRepo;
         private readonly IMovieRepository _movieRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-        public MovieListService(IJoinMoviesListsRepository repo, IMapper mapper, IReviewRepository reviewRepo, UserManager<AppUser> userManager, IMovieListRepository movieListRepository, IMovieRepository movieRepository) {
+        public MovieListService(IJoinMoviesListsRepository repo, IMapper mapper, IReviewRepository reviewRepo, UserManager<AppUser> userManager, IMovieListRepository movieListRepository, IMovieRepository movieRepository, IJoinMoviesListsRepository joinMoviesListsRepository) {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
             _movieListRepo = movieListRepository;
             _movieRepository = movieRepository;
+            _joinMoviesListsRepo = joinMoviesListsRepository;   
         }
 
         public async Task Create(MovieListCreateDTO movieListCreateDTO) {
@@ -61,6 +63,20 @@ namespace lbdbackend.Service.Services {
             await _movieListRepo.CommitAsync();
         }
 
+        public async Task<List<MovieGetDTO>> GetListMovies(int id) {
+            if (!await _movieListRepo.ExistsAsync(l => l.ID == id)) {
+                throw new ItemNotFoundException("List not found.");
+            }
+            List<MovieGetDTO> movieGetDTOs = new List<MovieGetDTO>();
+
+            foreach (var movieList in await _joinMoviesListsRepo.GetAllAsync(l => l.MovieListId == id, "Movie")) {
+                var dto = _mapper.Map<MovieGetDTO>(movieList.Movie);
+                movieGetDTOs.Add(dto);
+            }
+
+            return movieGetDTOs;
+        }
+
         public async Task<PaginatedListDTO<MovieListGetDTO>> GetUserLists(string userName, int i) {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null) {
@@ -77,6 +93,7 @@ namespace lbdbackend.Service.Services {
                 dto.OwnerUsername = user.UserName;
                 dto.MovieCount = movieList.MovieCount;
                 dto.Name = movieList.Name;
+                dto.Id = movieList.ID;
                 movieListGetDTOs.Add(dto);
             }
 
@@ -84,5 +101,7 @@ namespace lbdbackend.Service.Services {
 
             return paginatedListDTO;
         }
+    
+         
     }
 }

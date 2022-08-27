@@ -2,6 +2,7 @@
 using lbdbackend.Service.DTOs.GenreDTOs;
 using lbdbackend.Service.DTOs.MovieDTOs;
 using lbdbackend.Service.DTOs.UserDTOs;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,6 @@ namespace lbdbackend.Service.Interfaces {
         Task<bool> CheckFollow(string followerUsername, string followeeUsername);
         Task<PaginatedListDTO<UserGetDTO>> GetUserFollowers(string userName, int i);
         Task<PaginatedListDTO<UserGetDTO>> GetUserFollowees(string userName, int i);
+        Task ChangeUserImage(string  userName, IFormFile file);
     }
 }

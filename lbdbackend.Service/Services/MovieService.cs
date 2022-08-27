@@ -62,8 +62,8 @@ namespace lbdbackend.Service.Services {
 
             Movie movie = _mapper.Map<Movie>(movieCreateDTO);
 
-            movie.PosterImage = await movieCreateDTO.PosterImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "posterimages");
-            movie.BackgroundImage = await movieCreateDTO.BackgroundImage.CreateFileAsync(_env, "src", "assets", "images", "movies", "backgroundimages");
+            movie.PosterImage = await movieCreateDTO.PosterImage.CreateFileAsync(_env, "images", "movies", "posterimages");
+            movie.BackgroundImage = await movieCreateDTO.BackgroundImage.CreateFileAsync(_env, "images", "movies", "backgroundimages");
 
             movie.CreatedAt = DateTime.UtcNow;
 

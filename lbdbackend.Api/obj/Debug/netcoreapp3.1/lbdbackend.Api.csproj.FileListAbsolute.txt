@@ -84,13 +84,6 @@ C:\Users\lasau\Projects\lbdbackend\lbdbackend.Api\bin\Debug\netcoreapp3.1\System
 C:\Users\lasau\Projects\lbdbackend\lbdbackend.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\lasau\Projects\lbdbackend\lbdbackend.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\lasau\Projects\lbdbackend\lbdbackend.Api\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.csproj.AssemblyReference.cache
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.AssemblyInfoInputs.cache
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.AssemblyInfo.cs
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.csproj.CoreCompileInputs.cache
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\lbdbackend.Api.exe
@@ -168,6 +161,13 @@ C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\l
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\lbdbackend.Data.pdb
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\lbdbackend.Service.pdb
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Debug\netcoreapp3.1\lbdbackend.Core.pdb
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.csproj.AssemblyReference.cache
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.AssemblyInfoInputs.cache
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.AssemblyInfo.cs
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.csproj.CoreCompileInputs.cache
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\staticwebassets\lbdbackend.Api.StaticWebAssets.Manifest.cache
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.RazorTargetAssemblyInfo.cache
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Debug\netcoreapp3.1\lbdbackend.Api.csproj.CopyComplete

@@ -3,6 +3,7 @@ using lbdbackend.Core.Entities;
 using lbdbackend.Service.DTOs.AccountDTOs;
 using lbdbackend.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ namespace lbdbackend.Api.App.User.Controllers {
         [Route("register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO) {
             AppUser user = _mapper.Map<AppUser>(registerDTO);
+            user.Image = "defaultuser.jpg";
 
             IdentityResult identityResult = await _userManager.CreateAsync(user, registerDTO.Password);
 
@@ -60,6 +62,7 @@ namespace lbdbackend.Api.App.User.Controllers {
                         email = foundByEmail.Email,
                         id = foundByEmail.Id,
                         token = token,
+                        image = foundByEmail.Image,
                     }
                 });
             }
@@ -71,8 +74,10 @@ namespace lbdbackend.Api.App.User.Controllers {
                         email = foundByUserName.Email,
                         id = foundByUserName.Id,
                         token = token,
+                        image = foundByUserName.Image,
                     }
-                });
+                })
+                ;
             }
 
             return NotFound("Your credentials don’t match. It’s probably attributable to human error.");
@@ -119,6 +124,12 @@ namespace lbdbackend.Api.App.User.Controllers {
         [Route("getuserfollowees")]
         public async Task<IActionResult> GetUserFollowees(string userName, int i = 1) {
             return Ok(await _userService.GetUserFollowees(userName, i));
+        }
+
+        [HttpPost]
+        [Route("changeuseravatar")]
+        public async Task<IActionResult> ChangeUserAvatar(string userName, IFormFile file) {
+            return Ok(_userService.ChangeUserImage(userName, file));
         }
 
 

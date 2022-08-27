@@ -18,6 +18,7 @@ namespace lbdbackend.Service.DTOs.AccountDTOs {
         public string ConfirmPassword {
             get; set;
         }
+
     }
     public class RegisterDTOValidator : AbstractValidator<RegisterDTO> {
         public RegisterDTOValidator() {

@@ -9,6 +9,7 @@ namespace lbdbackend.Service.Interfaces {
     public interface IMovieListService {
         Task Create(MovieListCreateDTO movieListCreateDTO);
         Task<PaginatedListDTO<MovieListGetDTO>> GetUserLists(string userName, int i);
+        Task<List<MovieGetDTO>> GetListMovies(int id);
 
     }
 }

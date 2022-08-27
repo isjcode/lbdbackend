@@ -110,6 +110,7 @@ namespace lbdbackend.Service.Services {
                 var dto = _mapper.Map<ReviewGetDTO>(item);
                 dto.Username = item.Owner.UserName;
                 dto.Image = item.Movie.PosterImage;
+                dto.OwnerImage = item.Owner.Image;
                 dto.MovieName = item.Movie.Name;
                 reviewGetDTOs.Add(dto);
             }

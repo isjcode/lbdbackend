@@ -27,6 +27,12 @@ namespace lbdbackend.Api.App.User.Controllers {
             return Ok(await _movieListService.GetUserLists(userName, i));
         }
 
+        [HttpGet]
+        [Route("getlistmovies")]
+        public async Task<IActionResult> GetListMovies(int id) {
+            return Ok(await _movieListService.GetListMovies(id));
+        }
+
 
     }
 }

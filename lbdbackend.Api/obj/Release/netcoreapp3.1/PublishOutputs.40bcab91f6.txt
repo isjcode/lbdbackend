@@ -1,5 +1,8 @@
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\lbdbackend.Api.exe
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\movies\backgroundimages\23e0a9e0-6bc3-4cc4-a906-063873abb230_20220827_Barton_Academy_by_Highsmith.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\movies\posterimages\e70580f1-9d93-4e81-a99c-249de9d58a7e_20220827_bbbbbbbbbbb.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\people\f1190e99-d2c1-4ed4-838c-a1695899377d_20220826_ssss.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\users\defaultuser.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\lbdbackend.Api.dll
