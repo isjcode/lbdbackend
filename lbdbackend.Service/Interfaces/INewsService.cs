@@ -10,8 +10,8 @@ namespace lbdbackend.Service.Interfaces {
     public interface INewsService {
         Task Create(NewsCreateDTO newsCreateDTO);
         Task<PaginatedListDTO<NewsGetDTO>> GetUserNews(string userName, int i);
-
         Task Delete(int id);
+        Task<NewsGetDTO> GetById(int id);
 
     }
 }

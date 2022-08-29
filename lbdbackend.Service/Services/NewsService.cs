@@ -74,7 +74,18 @@ namespace lbdbackend.Service.Services {
             PaginatedListDTO<NewsGetDTO> paginatedListDTO = new PaginatedListDTO<NewsGetDTO>(newsGetDTOs, i, 4);
 
             return paginatedListDTO;
+        }
 
+        public async Task<NewsGetDTO> GetById(int id) {
+            var news = await _repo.GetAsync(n => !n.IsDeleted && n.ID == id, "Owner");
+
+            if (news == null) {
+                throw new ItemNotFoundException("News not found.");
+            }
+
+            var dto = _mapper.Map<NewsGetDTO>(news);
+            dto.OwnerUsername = news.Owner.UserName;
+            return dto;
         }
 
     }

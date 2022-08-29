@@ -35,5 +35,11 @@ namespace lbdbackend.Api.App.User.Controllers {
             return Ok();
         }
 
+        [HttpGet]
+        [Route("getbyid")]
+        public async Task<NewsGetDTO> GetById(int id) {
+            return await _newsService.GetById(id);
+        }
+
     }
 }
