@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -111,7 +112,6 @@ namespace lbdbackend.Api {
                 };
             });
 
-
             services.AddAutoMapper(options => {
                 options.AddProfile(new MappingProfile());
             });
@@ -147,6 +147,9 @@ namespace lbdbackend.Api {
             services.AddScoped<IMovieListService, MovieListService>();
             services.AddScoped<IMovieListRepository, MovieListRepository>();
             services.AddScoped<IJoinMoviesListsRepository, JoinMoviesListsRepository>();
+
+            services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<INewsService, NewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

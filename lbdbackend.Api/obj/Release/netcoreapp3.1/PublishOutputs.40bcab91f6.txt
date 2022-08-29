@@ -1,7 +1,15 @@
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\lbdbackend.Api.exe
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\movies\backgroundimages\23e0a9e0-6bc3-4cc4-a906-063873abb230_20220827_Barton_Academy_by_Highsmith.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\movies\posterimages\e70580f1-9d93-4e81-a99c-249de9d58a7e_20220827_bbbbbbbbbbb.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\0a40ebea-024f-48b2-bb8f-5bab58ae717e_20220829_turning reddsadasdas.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\107faafd-f229-4bc7-a5f6-1c5b98fecf35_20220829_Barton_Academy_by_Highsmith.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\25ab111e-8320-4cb2-adf3-dfee6d724676_20220829_getout.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\83b27f27-d278-4db9-8a55-77ce62254b09_20220829_Barton_Academy_by_Highsmith.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\cefceb6b-4a26-4e56-bfd2-874653978a25_20220829_Barton_Academy_by_Highsmith.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\e6d3036a-cb6e-4642-b9d3-e420197ac088_20220829_bbbbbbbbbbb.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\people\f1190e99-d2c1-4ed4-838c-a1695899377d_20220826_ssss.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\users\254701c4-9c23-4e09-988e-207189297ffc_20220828_dsdadasdasdas.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\users\8d591fdd-635b-4ad9-b896-dd4c3d688917_20220828_ssss.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\users\defaultuser.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json

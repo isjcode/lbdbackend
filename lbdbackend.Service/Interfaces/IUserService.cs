@@ -15,6 +15,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<bool> CheckFollow(string followerUsername, string followeeUsername);
         Task<PaginatedListDTO<UserGetDTO>> GetUserFollowers(string userName, int i);
         Task<PaginatedListDTO<UserGetDTO>> GetUserFollowees(string userName, int i);
-        Task ChangeUserImage(string  userName, IFormFile file);
+        Task ChangeUserImage(UserImageDTO userImageDTO);
+        Task ChangeUserCredentials(string userName, UserChangeDTO userChangeDTO);
     }
 }

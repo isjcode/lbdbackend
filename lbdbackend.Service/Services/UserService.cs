@@ -77,7 +77,7 @@ namespace lbdbackend.Service.Services {
             if (followee == null) {
                 throw new ItemNotFoundException("Followee id not found.");
             }
-            
+
             Relationship relationship = new Relationship();
             if (await _relationshipRepo.ExistsAsync(r => r.FollowerId == follower.Id && r.FolloweeId == followee.Id)) {
                 var row = _relationshipRepo.GetAsync(r => r.FollowerId == follower.Id && r.FolloweeId == followee.Id).Result;
@@ -96,7 +96,7 @@ namespace lbdbackend.Service.Services {
                 await _relationshipRepo.AddAsync(relationship);
                 isFollowing = true;
             }
-            
+
 
             await _relationshipRepo.CommitAsync();
             return isFollowing;
@@ -155,7 +155,7 @@ namespace lbdbackend.Service.Services {
                 throw new ItemNotFoundException("User not found.");
             }
             string userId = user.Id;
-            
+
             int followeeCount = await _relationshipRepo.GetCount(e => !e.IsDeleted && e.FollowerId == userId);
             int followerCount = await _relationshipRepo.GetCount(e => !e.IsDeleted && e.FolloweeId == userId);
             int listCount = await _movieListRepository.GetCount(e => !e.IsDeleted && e.OwnerId == userId);
@@ -181,19 +181,56 @@ namespace lbdbackend.Service.Services {
             return userGetDTO;
         }
 
-        public async Task ChangeUserImage(string userName, IFormFile file) {
-            if (file == null) {
+        public async Task ChangeUserImage(UserImageDTO userImageDTO) {
+            if (userImageDTO.Image == null) {
                 throw new ArgumentNullException();
             }
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(userImageDTO.UserName);
 
             if (user == null) {
                 throw new ItemNotFoundException("User not found;");
             }
 
-            user.Image = await file.CreateFileAsync(_env, "images", "users");
+            user.Image = await userImageDTO.Image.CreateFileAsync(_env, "images", "users");
             await _repo.UpdateAsync(user);
             await _movieListRepository.CommitAsync();
+        }
+
+        public async Task ChangeUserCredentials(string userName, UserChangeDTO userChangeDTO) {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) {
+                throw new ItemNotFoundException("User not found;");
+            }
+
+            if (userChangeDTO == null) {
+                throw new ArgumentNullException();
+            }
+
+            if (userChangeDTO.UserName.Length < 6) {
+                throw new BadRequestException("Username can't be smaller than 6 characters.");
+            }
+
+            if (userChangeDTO.Password.Length < 6) {
+                throw new BadRequestException("Password can't be smaller than 6 characters.");
+            }
+
+            if (userName != userChangeDTO.UserName) {
+                if (await _userManager.FindByNameAsync(userChangeDTO.UserName) != null || await _userManager.FindByEmailAsync(userChangeDTO.Email) != null) {
+                    throw new AlreadyExistException("User already exists.");
+                }
+            }
+
+                user.UserName = userChangeDTO.UserName;
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var result = await _userManager.ResetPasswordAsync(user, token, userChangeDTO.Password);
+
+            user.Email = userChangeDTO.Email;
+
+            await _repo.UpdateAsync(user);
+            await _movieListRepository.CommitAsync();
+
         }
     }
 }

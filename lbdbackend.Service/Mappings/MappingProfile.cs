@@ -5,6 +5,7 @@ using lbdbackend.Service.DTOs.CommentDTOs;
 using lbdbackend.Service.DTOs.GenreDTOs;
 using lbdbackend.Service.DTOs.ListDTOs;
 using lbdbackend.Service.DTOs.MovieDTOs;
+using lbdbackend.Service.DTOs.NewsDTOs;
 using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.DTOs.ProfessionDTOs;
 using lbdbackend.Service.DTOs.ReviewDTOs;
@@ -66,6 +67,11 @@ namespace lbdbackend.Service.Mappings {
             CreateMap<MovieList, MovieListCreateDTO>();
             CreateMap<MovieListGetDTO, MovieList>();
             CreateMap<MovieList, MovieGetDTO>();
+
+            CreateMap<NewsCreateDTO, News>();
+            CreateMap<News, NewsCreateDTO>();
+            CreateMap<NewsGetDTO, News>();
+            CreateMap<News, NewsGetDTO>();
 
 
 

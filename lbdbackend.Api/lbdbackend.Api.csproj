@@ -31,6 +31,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\movies\backgroundimages\" />
     <Folder Include="wwwroot\images\movies\posterimages\" />
+    <Folder Include="wwwroot\images\news\" />
     <Folder Include="wwwroot\images\people\" />
   </ItemGroup>
 

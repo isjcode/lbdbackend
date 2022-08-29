@@ -479,6 +479,48 @@ namespace lbdbackend.Data.Migrations
                     b.ToTable("MovieLists");
                 });
 
+            modelBuilder.Entity("lbdbackend.Core.Entities.News", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(3000)")
+                        .HasMaxLength(3000);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("lbdbackend.Core.Entities.Person", b =>
                 {
                     b.Property<int>("ID")
@@ -783,6 +825,13 @@ namespace lbdbackend.Data.Migrations
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("lbdbackend.Core.Entities.News", b =>
+                {
+                    b.HasOne("lbdbackend.Core.Entities.AppUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
                 });
 
             modelBuilder.Entity("lbdbackend.Core.Entities.Person", b =>

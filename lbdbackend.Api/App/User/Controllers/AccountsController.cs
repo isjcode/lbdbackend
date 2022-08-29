@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using lbdbackend.Core.Entities;
 using lbdbackend.Service.DTOs.AccountDTOs;
+using lbdbackend.Service.DTOs.UserDTOs;
 using lbdbackend.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -127,10 +128,24 @@ namespace lbdbackend.Api.App.User.Controllers {
         }
 
         [HttpPost]
+        [Authorize(Roles = "Member")]
         [Route("changeuseravatar")]
-        public async Task<IActionResult> ChangeUserAvatar(string userName, IFormFile file) {
-            return Ok(_userService.ChangeUserImage(userName, file));
+
+        public async Task<IActionResult> ChangeUserAvatar([FromForm] UserImageDTO userImageDTO) {
+            await _userService.ChangeUserImage(userImageDTO);
+            return Ok();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Member")]
+        [Route("changeusercredentials")]
+
+        public async Task<IActionResult> ChangeUserCredentials(string userName, UserChangeDTO userChangeDTO) {
+            await _userService.ChangeUserCredentials(userName, userChangeDTO);
+            return Ok();
+        }
+
+
 
 
         //[HttpGet]
