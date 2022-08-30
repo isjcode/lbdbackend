@@ -138,6 +138,21 @@ namespace lbdbackend.Service.Services {
             return reviewGetDTOs;
         }
 
+        public async Task<List<ReviewGetDTO>> GetRecentReviews() {
+            List<ReviewGetDTO> reviewGetDTOs = new List<ReviewGetDTO>();
+
+            List<Review> reviews = await _repo.GetAllAsync(r => !r.IsDeleted, "Movie", "Owner");
+
+            for (int i = Math.Max(0, reviews.Count - 5); i < reviews.Count; ++i) {
+                var dto = _mapper.Map<ReviewGetDTO>(reviews[i]);
+                dto.Username = reviews[i].Owner.UserName;
+                dto.Image = reviews[i].Movie.PosterImage;
+                reviewGetDTOs.Add(dto);
+            }
+
+            return reviewGetDTOs;
+        }
+
         public async Task<ReviewGetDTO> GetReview(int reviewID) {
             if (!await _repo.ExistsAsync(r => r.ID == reviewID)) {
                 throw new ItemNotFoundException("Review not found.");

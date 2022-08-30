@@ -88,5 +88,7 @@ namespace lbdbackend.Service.Services {
             return dto;
         }
 
+        public Task<NewsGetDTO> GetLatestNews() {
+        }
     }
 }

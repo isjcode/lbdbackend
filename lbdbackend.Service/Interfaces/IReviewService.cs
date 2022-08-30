@@ -12,6 +12,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<PaginatedListDTO<ReviewGetDTO>> GetPaginatedReviews(int movieID, int i);
         Task<ReviewGetDTO> GetReview(int reviewID);
         Task<List<ReviewGetDTO>> GetRecentReviews(string userName);
+        Task<List<ReviewGetDTO>> GetRecentReviews();
         Task<PaginatedListDTO<ReviewGetDTO>> GetPaginatedUserReviews(string userName, int i);
         Task<PaginatedListDTO<ReviewGetDTO>> GetAllUserReviews(string userName, int i);
     }

@@ -12,6 +12,8 @@ namespace lbdbackend.Service.Interfaces {
         Task<PaginatedListDTO<NewsGetDTO>> GetUserNews(string userName, int i);
         Task Delete(int id);
         Task<NewsGetDTO> GetById(int id);
+        Task<NewsGetDTO> GetLatestNews();
+
 
     }
 }
