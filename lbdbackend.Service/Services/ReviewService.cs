@@ -141,7 +141,7 @@ namespace lbdbackend.Service.Services {
         public async Task<List<ReviewGetDTO>> GetRecentReviews() {
             List<ReviewGetDTO> reviewGetDTOs = new List<ReviewGetDTO>();
 
-            List<Review> reviews = await _repo.GetAllAsync(r => !r.IsDeleted, "Movie", "Owner");
+            List<Review> reviews = await _repo.GetAllAsync(r => !r.IsDeleted && r.Body.Trim().Length > 0, "Movie", "Owner");
 
             for (int i = Math.Max(0, reviews.Count - 5); i < reviews.Count; ++i) {
                 var dto = _mapper.Map<ReviewGetDTO>(reviews[i]);

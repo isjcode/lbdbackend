@@ -71,6 +71,11 @@ namespace lbdbackend.Data.Repositories {
             }
         }
 
+        public async Task<TEntity> GetLast() {
+            return _context.Set<TEntity>().OrderByDescending(x => !x.IsDeleted).FirstOrDefault();
 
     }
+
+
+}
 }

@@ -77,6 +77,20 @@ namespace lbdbackend.Service.Services {
             return movieGetDTOs;
         }
 
+        public async Task<List<MovieListGetDTO>> GetRecentsLists() {
+            List<MovieListGetDTO> movieListGetDTOs = new List<MovieListGetDTO>();
+
+            List<MovieList> movieLists = await _movieListRepo.GetAllAsync(r => !r.IsDeleted, "Owner");
+
+            for (int i = Math.Max(0, movieLists.Count - 3); i < movieLists.Count; ++i) {
+                var dto = _mapper.Map<MovieListGetDTO>(movieLists[i]);
+                dto.OwnerUsername = movieLists[i].Owner.UserName;
+                movieListGetDTOs.Add(dto);
+            }
+
+            return movieListGetDTOs;
+        }
+
         public async Task<PaginatedListDTO<MovieListGetDTO>> GetUserLists(string userName, int i) {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null) {
@@ -101,6 +115,8 @@ namespace lbdbackend.Service.Services {
 
             return paginatedListDTO;
         }
+
+
     
          
     }

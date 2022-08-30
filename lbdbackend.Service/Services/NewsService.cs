@@ -88,7 +88,24 @@ namespace lbdbackend.Service.Services {
             return dto;
         }
 
-        public Task<NewsGetDTO> GetLatestNews() {
+        public async Task<NewsGetDTO> GetLatestNews() {
+            var news = _mapper.Map<NewsGetDTO>(await _repo.GetLast());
+            return news;
+        }
+
+        public async Task<List<NewsGetDTO>> GetRecentNews() {
+            List<NewsGetDTO> newsGetDTOs = new List<NewsGetDTO>();
+
+            List<News> news = await _repo.GetAllAsync(r => !r.IsDeleted, "Owner");
+
+            for (int i = Math.Max(0, news.Count - 12); i < news.Count; ++i) {
+                var dto = _mapper.Map<NewsGetDTO>(news[i]);
+                dto.OwnerUsername = news[i].Owner.UserName;
+                dto.Image = news[i].Image;
+                newsGetDTOs.Add(dto);
+            }
+
+            return newsGetDTOs;
         }
     }
 }

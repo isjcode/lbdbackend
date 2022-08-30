@@ -13,6 +13,7 @@ namespace lbdbackend.Service.Interfaces {
         Task Delete(int id);
         Task<NewsGetDTO> GetById(int id);
         Task<NewsGetDTO> GetLatestNews();
+        Task<List<NewsGetDTO>> GetRecentNews();
 
 
     }

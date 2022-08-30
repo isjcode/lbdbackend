@@ -66,7 +66,7 @@ namespace lbdbackend.Service.Mappings {
             CreateMap<MovieListCreateDTO, MovieList>();
             CreateMap<MovieList, MovieListCreateDTO>();
             CreateMap<MovieListGetDTO, MovieList>();
-            CreateMap<MovieList, MovieGetDTO>();
+            CreateMap<MovieList, MovieListGetDTO>();
 
             CreateMap<NewsCreateDTO, News>();
             CreateMap<News, NewsCreateDTO>();

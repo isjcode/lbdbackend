@@ -8,15 +8,25 @@ namespace lbdbackend.Api.App.User.Controllers {
     [ApiController]
     public class HomeController : ControllerBase {
         private readonly IReviewService _reviewService;
-        public HomeController(IReviewService reviewService) {
+        private readonly INewsService _newsService;
+        private readonly IMovieListService _movieListService;
+        public HomeController(IReviewService reviewService, INewsService newsService, IMovieListService movieListService) {
             _reviewService = reviewService;
+            _newsService = newsService;
+            _movieListService = movieListService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get() {
             var reviews = await _reviewService.GetRecentReviews();
+            var latestNews = await _newsService.GetLatestNews();
+            var recentNews = await _newsService.GetRecentNews();
+            var recentLists = await _movieListService.GetRecentsLists();
             return Ok(new {
-                reviews = reviews
+                reviews = reviews,
+                latestNews = latestNews,
+                recentNews = recentNews,
+                recentLists = recentLists,
             });
 
         }
