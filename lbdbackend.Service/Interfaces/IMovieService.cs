@@ -14,6 +14,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<MovieGetDTO> GetByID(int? id);
         Task<List<MovieGetDTO>> GetByStr(string str);
         Task<PaginatedListDTO<MovieGetDTO>> GetAllPageIndexAsync(string s, int pageIndex);
+        Task<List<MovieGetDTO>> GetRecentMovies(int i = 4);
 
 
     }

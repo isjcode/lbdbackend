@@ -203,5 +203,19 @@ namespace lbdbackend.Service.Services {
 
             return paginatedListDTO;
         }
+
+        public async Task<List<MovieGetDTO>> GetRecentMovies(int quantity = 4) {
+            List<MovieGetDTO> movieGetDTOs = new List<MovieGetDTO>();
+
+            List<Movie> movies = await _repo.GetAllAsync(r => !r.IsDeleted);
+
+            for (int i = Math.Max(0, movies.Count - quantity); i < movies.Count; ++i) {
+                var dto = _mapper.Map<MovieGetDTO>(movies[i]);
+
+                movieGetDTOs.Add(dto);
+            }
+
+            return movieGetDTOs;
+        }
     }
 }

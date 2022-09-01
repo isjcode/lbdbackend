@@ -138,12 +138,12 @@ namespace lbdbackend.Service.Services {
             return reviewGetDTOs;
         }
 
-        public async Task<List<ReviewGetDTO>> GetRecentReviews() {
+        public async Task<List<ReviewGetDTO>> GetRecentReviews(int quantity = 5) {
             List<ReviewGetDTO> reviewGetDTOs = new List<ReviewGetDTO>();
 
             List<Review> reviews = await _repo.GetAllAsync(r => !r.IsDeleted && r.Body.Trim().Length > 0, "Movie", "Owner");
 
-            for (int i = Math.Max(0, reviews.Count - 5); i < reviews.Count; ++i) {
+            for (int i = Math.Max(0, reviews.Count - quantity); i < reviews.Count; ++i) {
                 var dto = _mapper.Map<ReviewGetDTO>(reviews[i]);
                 dto.Username = reviews[i].Owner.UserName;
                 dto.Image = reviews[i].Movie.PosterImage;
