@@ -9,6 +9,7 @@ using lbdbackend.Service.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using P225Allup.Extensions;
 using P225NLayerArchitectura.Service.Exceptions;
 using System;
@@ -231,6 +232,46 @@ namespace lbdbackend.Service.Services {
             await _repo.UpdateAsync(user);
             await _movieListRepository.CommitAsync();
 
+        }
+
+        public async Task<List<UserGetDTO>> GetRecentMembers(int quantity = 5) {
+            List<UserGetDTO> userGetDTOs = new List<UserGetDTO>();
+
+            List<AppUser> users = await _userManager.Users.ToListAsync();
+
+            var members = new List<AppUser>();
+
+            foreach (var user in users) {
+                if ((await _userManager.GetRolesAsync(user)).ToList().Exists(e => e == "Member")) {
+                    members.Add(user);
+                }
+            }
+
+            for (int i = Math.Max(0, members.Count - quantity); i < members.Count; ++i) {
+                var dto = _mapper.Map<UserGetDTO>(members[i]);
+                var reviewCount = await _reviewRepo.GetCount(r => !r.IsDeleted && r.OwnerId == members[i].Id);
+                dto.ReviewCount = reviewCount;
+                userGetDTOs.Add(dto);
+            }
+
+            return userGetDTOs;
+        }
+
+        public async Task<PaginatedListDTO<UserGetDTO>> GetPaginatedUsers(int i) {
+            List<UserGetDTO> userGetDTOs = new List<UserGetDTO>();
+
+            List<AppUser> reviews = new List<AppUser>();
+            var users = await _userManager.Users.ToListAsync();
+
+            foreach (var user in users) {
+                if ((await _userManager.GetRolesAsync(user)).ToList().Exists(e => e == "Member")) {
+                    var dto = _mapper.Map<UserGetDTO>(user);
+                    userGetDTOs.Add(dto);
+                }
+            }
+            PaginatedListDTO<UserGetDTO> paginatedListDTO = new PaginatedListDTO<UserGetDTO>(userGetDTOs, i, 6);
+
+            return paginatedListDTO;
         }
     }
 }

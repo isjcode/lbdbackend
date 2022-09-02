@@ -9,6 +9,7 @@ namespace lbdbackend.Service.DTOs.UserDTOs {
         public int ListCount { get; set; }
         public int FollowerCount { get; set; }
         public int FolloweeCount { get; set; }
+        public int ReviewCount { get; set; }
         public int MovieListCount { get; set; }
         public string Image { get; set; }
         public string UserName { get; set; }

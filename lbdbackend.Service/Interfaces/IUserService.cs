@@ -17,5 +17,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<PaginatedListDTO<UserGetDTO>> GetUserFollowees(string userName, int i);
         Task ChangeUserImage(UserImageDTO userImageDTO);
         Task ChangeUserCredentials(string userName, UserChangeDTO userChangeDTO);
+        Task<List<UserGetDTO>> GetRecentMembers(int quantity = 5);
+        Task<PaginatedListDTO<UserGetDTO>> GetPaginatedUsers(int i = 1);
     }
 }
