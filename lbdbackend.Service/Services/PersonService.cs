@@ -88,8 +88,7 @@ namespace lbdbackend.Service.Services {
             Person person = await _repo.GetAsync(e => e.ID == personUpdateDTO.ID);
             person.Name = personUpdateDTO.Name;
             person.Description = personUpdateDTO.Description;
-            person.Image = await personUpdateDTO.File.CreateFileAsync(_env, "Assets", "Images", "People");
-            Console.WriteLine(_env);
+            person.Image = await personUpdateDTO.File.CreateFileAsync(_env, "images", "people");
             person.UpdatedAt = DateTime.UtcNow;
 
 

@@ -7,6 +7,7 @@ C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\83b27f27-d278-4db9-8a55-77ce62254b09_20220829_Barton_Academy_by_Highsmith.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\cefceb6b-4a26-4e56-bfd2-874653978a25_20220829_Barton_Academy_by_Highsmith.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\news\e6d3036a-cb6e-4642-b9d3-e420197ac088_20220829_bbbbbbbbbbb.jpg
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\people\02542219-663b-4814-ab80-78fa83494ba5_20220903_Michelle_Yeoh_Cannes_2017.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\people\f1190e99-d2c1-4ed4-838c-a1695899377d_20220826_ssss.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\users\254701c4-9c23-4e09-988e-207189297ffc_20220828_dsdadasdasdas.jpg
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\users\8d591fdd-635b-4ad9-b896-dd4c3d688917_20220828_ssss.jpg

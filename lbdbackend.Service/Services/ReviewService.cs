@@ -68,7 +68,7 @@ namespace lbdbackend.Service.Services {
                 dto.Image = item.Owner.Image;
                 reviewGetDTOs.Add(dto);
             }
-            PaginatedListDTO<ReviewGetDTO> paginatedListDTO = new PaginatedListDTO<ReviewGetDTO>(reviewGetDTOs, i, 2);
+            PaginatedListDTO<ReviewGetDTO> paginatedListDTO = new PaginatedListDTO<ReviewGetDTO>(reviewGetDTOs, i, 8);
 
             return paginatedListDTO;
         }

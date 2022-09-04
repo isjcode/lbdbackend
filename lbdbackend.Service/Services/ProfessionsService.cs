@@ -62,7 +62,7 @@ namespace lbdbackend.Service.Services {
                 throw new NullReferenceException();
             }
 
-            _repo.CommitAsync();
+            await _repo.CommitAsync();
         }
 
         public async Task<List<ProfessionGetDTO>> GetProfessions() {

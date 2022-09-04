@@ -3,6 +3,7 @@ using lbdbackend.Core.Entities;
 using lbdbackend.Core.Repositories;
 using lbdbackend.Service.DTOs.GenreDTOs;
 using lbdbackend.Service.DTOs.MovieDTOs;
+using lbdbackend.Service.DTOs.PersonDTOs;
 using lbdbackend.Service.Exceptions;
 using lbdbackend.Service.Interfaces;
 using Microsoft.AspNetCore.Hosting;
@@ -216,6 +217,23 @@ namespace lbdbackend.Service.Services {
             }
 
             return movieGetDTOs;
+        }
+
+        public async Task<List<MovieGetDTO>> GetPersonMovies(int id) {
+            if (!await _repoPeople.ExistsAsync(p => p.ID == id)) {
+                throw new ItemNotFoundException("Person not found.");
+            }
+
+            List<MovieGetDTO> movies = new List<MovieGetDTO>();
+
+            foreach (var row in await _repoMoviesPeople.GetAllAsync(r => r.PersonID == id)) {
+                var dto = _mapper.Map<MovieGetDTO>(await _repo.GetAsync(m => m.ID == row.MovieID));
+                movies.Add(dto);
+            }
+
+            return movies;
+
+
         }
     }
 }
