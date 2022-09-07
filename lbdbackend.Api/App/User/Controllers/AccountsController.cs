@@ -22,14 +22,16 @@ namespace lbdbackend.Api.App.User.Controllers {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IJWTManager _jwtManager;
+        private readonly IEmailService _emailService;
 
 
-        public AccountsController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IJWTManager jwtManager, IUserService userService) {
+        public AccountsController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IJWTManager jwtManager, IUserService userService, IEmailService emailService) {
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
             _jwtManager = jwtManager;
             _userService = userService;
+            _emailService = emailService;
         }
 
         [HttpPost]
@@ -45,8 +47,22 @@ namespace lbdbackend.Api.App.User.Controllers {
             }
 
             identityResult = await _userManager.AddToRoleAsync(user, "Member");
+            AppUser appUser = await _userManager.FindByEmailAsync(registerDTO.Email);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+            var link = Url.Action("ConfirmEmail", "Accounts", new { userId = appUser.Id, token = code }, Request.Scheme, Request.Host.ToString());
+
+            _emailService.Register(registerDTO, link);
 
             return StatusCode(200);
+        }
+
+        [HttpGet]
+        [Route("confirmemail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token) {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            await _userManager.ConfirmEmailAsync(user, token);
+            return Ok();
+
         }
 
         [HttpPost]
@@ -54,8 +70,8 @@ namespace lbdbackend.Api.App.User.Controllers {
         public async Task<IActionResult> Login(LoginDTO loginDTO) {
             AppUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
             AppUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);
-
-            if (foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password)) {
+         
+            if (foundByEmail.EmailConfirmed && foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password)) {
                 var token = await _jwtManager.GenerateToken(foundByEmail);
                 return Ok(new {
                     userData = new {
@@ -67,7 +83,7 @@ namespace lbdbackend.Api.App.User.Controllers {
                     }
                 });
             }
-            else if (foundByUserName != null && await _userManager.CheckPasswordAsync(foundByUserName, loginDTO.Password)) {
+            else if (foundByUserName.EmailConfirmed && foundByUserName != null && await _userManager.CheckPasswordAsync(foundByUserName, loginDTO.Password)) {
                 var token = await _jwtManager.GenerateToken(foundByUserName);
                 return Ok(new {
                     userData = new {
@@ -143,6 +159,13 @@ namespace lbdbackend.Api.App.User.Controllers {
         public async Task<IActionResult> ChangeUserCredentials(string userName, UserChangeDTO userChangeDTO) {
             await _userService.ChangeUserCredentials(userName, userChangeDTO);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("getusersbystring")]
+        public async Task<IActionResult> GetUserByString(string s, int i = 1) {
+            var users = await _userService.GetPaginatedUsers(s, i);
+            return Ok(users);
         }
 
 

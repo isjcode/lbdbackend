@@ -11,6 +11,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<PaginatedListDTO<MovieListGetDTO>> GetUserLists(string userName, int i);
         Task<List<MovieGetDTO>> GetListMovies(int id);
         Task<List<MovieListGetDTO>> GetRecentsLists();
+        Task Delete(int id);
 
     }
 }

@@ -15,5 +15,7 @@ namespace lbdbackend.Service.Interfaces {
         Task<List<ReviewGetDTO>> GetRecentReviews(int quantity = 5);
         Task<PaginatedListDTO<ReviewGetDTO>> GetPaginatedUserReviews(string userName, int i);
         Task<PaginatedListDTO<ReviewGetDTO>> GetAllUserReviews(string userName, int i);
+        Task DeleteReview(int? id);
+
     }
 }

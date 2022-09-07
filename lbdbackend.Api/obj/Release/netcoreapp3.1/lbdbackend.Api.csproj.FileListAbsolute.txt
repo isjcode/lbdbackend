@@ -88,3 +88,13 @@ C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\lbdbackend.Api.dll
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\lbdbackend.Api.pdb
 C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\obj\Release\netcoreapp3.1\lbdbackend.Api.genruntimeconfig.cache
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\MailKit.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\MimeKit.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\System.Formats.Asn1.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\System.Security.Cryptography.Cng.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Cng.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\lasau\Projects\lbdbackend-main\lbdbackend.Api\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Text.Encoding.CodePages.dll

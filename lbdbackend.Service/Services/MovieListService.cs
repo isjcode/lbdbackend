@@ -99,7 +99,7 @@ namespace lbdbackend.Service.Services {
 
             List<MovieListGetDTO> movieListGetDTOs = new List<MovieListGetDTO>();
 
-            var movieLists = await _movieListRepo.GetAllAsync(l => l.OwnerId == user.Id);
+            var movieLists = await _movieListRepo.GetAllAsync(l => !l.IsDeleted && l.OwnerId == user.Id);
 
             foreach (var movieList in movieLists) {
                 //var dto = _mapper.Map<MovieListGetDTO>(movieList);
@@ -116,8 +116,18 @@ namespace lbdbackend.Service.Services {
             return paginatedListDTO;
         }
 
+        public async Task Delete(int id) {
+            if (!await _movieListRepo.ExistsAsync(n => !n.IsDeleted && n.ID == id)) {
+                throw new ItemNotFoundException("News not found.");
+            }
+            var list = await _movieListRepo.GetAsync(n => !n.IsDeleted && n.ID == id);
+            list.IsDeleted = true;
+            await _repo.CommitAsync();
+        }
 
-    
-         
+
+
+
+
     }
 }

@@ -49,6 +49,15 @@ namespace lbdbackend.Api.App.User.Controllers {
             return Ok(await _reviewService.GetAllUserReviews(userName, i));
         }
 
+        [HttpDelete]
+        [Route("deletereview")]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> DeleteReview(int? id) {
+            await _reviewService.DeleteReview(id);
+            return Ok();
+        }
+
+
 
 
 

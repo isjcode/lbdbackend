@@ -170,7 +170,7 @@ namespace lbdbackend.Service.Services {
 
             List<int> movieIds = new List<int>();
 
-            foreach (Review review in await _reviewRepo.GetAllAsync(r => r.OwnerId == userId)) {
+            foreach (Review review in await _reviewRepo.GetAllAsync(r => !r.IsDeleted && r.OwnerId == userId)) {
                 movieIds.Add(review.MovieId);
             }
 
@@ -273,5 +273,20 @@ namespace lbdbackend.Service.Services {
 
             return paginatedListDTO;
         }
+
+        public async Task<PaginatedListDTO<UserGetDTO>> GetPaginatedUsers(string s, int i) {
+            List<UserGetDTO> userGetDTOs = new List<UserGetDTO>();
+            var users = await _userManager.Users.ToListAsync();
+            foreach (var item in users) {
+                if (item.UserName.Contains(s) && (await _userManager.GetRolesAsync(item)).ToList().Exists(e => e == "Member")) {
+                    var dto = _mapper.Map<UserGetDTO>(item);
+                    userGetDTOs.Add(dto);
+                }
+            }
+            PaginatedListDTO<UserGetDTO> paginatedListDTO = new PaginatedListDTO<UserGetDTO>(userGetDTOs, i, 2);
+
+            return paginatedListDTO;
+        }
+
     }
 }

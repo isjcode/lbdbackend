@@ -33,6 +33,14 @@ namespace lbdbackend.Api.App.User.Controllers {
             return Ok(await _movieListService.GetListMovies(id));
         }
 
+        [HttpDelete]
+        [Authorize(Roles = "Superadmin, Admin, Member")]
+
+        public async Task<IActionResult> Delete(int id) {
+            await _movieListService.Delete(id);
+            return Ok();
+        }
+
 
     }
 }

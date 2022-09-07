@@ -158,11 +158,26 @@ namespace lbdbackend.Service.Services {
                 throw new ItemNotFoundException("Review not found.");
             }
 
-            var review = await _repo.GetAsync(r => !r.IsDeleted && r.ID == reviewID, "Owner");
+            var review = await _repo.GetAsync(r => !r.IsDeleted && r.ID == reviewID, "Owner", "Movie");
             var dto = _mapper.Map<ReviewGetDTO>(review);
             dto.Username = review.Owner.UserName;
-            dto.Image = review.Owner.Image;
+            dto.Image = review.Movie.PosterImage;
             return dto;
+        }
+
+        public async Task DeleteReview(int? id) {
+            if (id == null) {
+                throw new ArgumentNullException();
+            }
+
+            if (!await _repo.ExistsAsync(e => e.ID == id)) {
+                throw new ItemNotFoundException("Review not found.");
+            }
+
+            var review = await _repo.GetAsync(e => e.ID == id);
+            review.IsDeleted = true;
+
+            await _repo.CommitAsync();
         }
     }
 }
