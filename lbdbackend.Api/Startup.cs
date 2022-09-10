@@ -112,6 +112,13 @@ namespace lbdbackend.Api {
                 };
             });
 
+            services.AddCors(options => options.AddDefaultPolicy(policy =>
+           policy.AllowAnyMethod()
+           .AllowAnyHeader()
+           .AllowCredentials()
+           .SetIsOriginAllowed(origin => true)
+           ));
+
             services.AddAutoMapper(options => {
                 options.AddProfile(new MappingProfile());
             });

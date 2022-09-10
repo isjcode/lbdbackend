@@ -71,7 +71,7 @@ namespace lbdbackend.Api.App.User.Controllers {
             AppUser foundByEmail = await _userManager.FindByEmailAsync(loginDTO.EmailOrUsername);
             AppUser foundByUserName = await _userManager.FindByNameAsync(loginDTO.EmailOrUsername);
          
-            if (foundByEmail.EmailConfirmed && foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password)) {
+            if (foundByEmail != null && await _userManager.CheckPasswordAsync(foundByEmail, loginDTO.Password) && foundByEmail.EmailConfirmed) {
                 var token = await _jwtManager.GenerateToken(foundByEmail);
                 return Ok(new {
                     userData = new {
@@ -83,7 +83,7 @@ namespace lbdbackend.Api.App.User.Controllers {
                     }
                 });
             }
-            else if (foundByUserName.EmailConfirmed && foundByUserName != null && await _userManager.CheckPasswordAsync(foundByUserName, loginDTO.Password)) {
+            else if (foundByUserName != null && await _userManager.CheckPasswordAsync(foundByUserName, loginDTO.Password) && foundByUserName.EmailConfirmed) {
                 var token = await _jwtManager.GenerateToken(foundByUserName);
                 return Ok(new {
                     userData = new {
